@@ -9,6 +9,7 @@ public:
     Timer();
 
     void start();
+    Uint32 restart();
     void stop();
     void pause();
     void unpause();

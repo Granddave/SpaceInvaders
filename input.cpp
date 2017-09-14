@@ -37,3 +37,10 @@ bool Input::isKeyHeld(SDL_Scancode key)
 {
     return m_HeldKeys[key];
 }
+
+void Input::clearAll()
+{
+    m_PressedKeys.clear();
+    m_ReleasedKeys.clear();
+    m_HeldKeys.clear();
+}

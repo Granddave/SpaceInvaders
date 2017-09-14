@@ -34,8 +34,11 @@ SOURCES += main.cpp \
     gameobject.cpp \
     player.cpp \
     timer.cpp \
-    button.cpp \
-    gamestate.cpp
+    gamestate.cpp \
+    menustate.cpp \
+    playstate.cpp \
+    pausestate.cpp \
+    button.cpp
 
 HEADERS += \
     ltexture.h \
@@ -48,5 +51,8 @@ HEADERS += \
     gameobject.h \
     player.h \
     timer.h \
-    button.h \
-    gamestate.h
+    gamestate.h \
+    menustate.h \
+    playstate.h \
+    pausestate.h \
+    button.h

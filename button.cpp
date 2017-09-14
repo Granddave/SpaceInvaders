@@ -11,6 +11,16 @@ void Button::setRect(const SDL_Rect &rect)
     m_Rect = rect;
 }
 
+SDL_Rect Button::rect()
+{
+    return m_Rect;
+}
+
+int Button::state()
+{
+    return m_State;
+}
+
 void Button::handleEvents(SDL_Event& e)
 {
     if(e.type == SDL_MOUSEMOTION ||
@@ -19,8 +29,6 @@ void Button::handleEvents(SDL_Event& e)
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
-
-        std::cout << x << ", " << y << "\n";
 
         bool inside = true;
 

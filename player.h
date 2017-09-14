@@ -14,9 +14,11 @@ public:
 
     void moveLeft();
     void moveRight();
+    void moveUp();
+    void moveDown();
     void stopMoving();
 
-    void update(float ms) override;
+    void update(int ms) override;
     void draw(Graphics &graphics) override;
 
     void handleInput(Input& input);

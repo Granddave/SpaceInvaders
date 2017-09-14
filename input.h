@@ -10,6 +10,7 @@ public:
     Input();
 
     void beginNewFrame();
+    void clearAll();
     void keyDownEvent(const SDL_Event& e);
     void keyUpEvent(const SDL_Event& e);
 

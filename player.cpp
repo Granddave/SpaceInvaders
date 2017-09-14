@@ -28,12 +28,24 @@ void Player::moveRight()
     m_IsMoving = true;
 }
 
+void Player::moveUp()
+{
+    m_Speed.y = -cPlayerBaseSpeed;
+    m_IsMoving = true;
+}
+
+void Player::moveDown()
+{
+    m_Speed.y = cPlayerBaseSpeed;
+    m_IsMoving = true;
+}
+
 void Player::stopMoving()
 {
     m_IsMoving = false;
 }
 
-void Player::update(float ms)
+void Player::update(int ms)
 {
     if(!m_IsMoving)
     {
@@ -42,6 +54,12 @@ void Player::update(float ms)
         else if(m_Speed.x > 0.03f)
             m_Speed.x = m_Speed.x - 0.002f * ms;
         else m_Speed.x = 0;
+
+        if(m_Speed.y < -0.03f)
+            m_Speed.y = m_Speed.y + 0.002f * ms;
+        else if(m_Speed.y > 0.03f)
+            m_Speed.y = m_Speed.y - 0.002f * ms;
+        else m_Speed.y = 0;
     }
 
     m_Pos.x += m_Speed.x * ms;
@@ -68,12 +86,12 @@ void Player::handleInput(Input &input)
 
     // Up - Down
     if(input.isKeyHeld(SDL_SCANCODE_W) && input.isKeyHeld(SDL_SCANCODE_S))
-        m_Speed.y = 0.0f;
+        stopMoving();
     else if(input.isKeyHeld(SDL_SCANCODE_W))
-        m_Speed.y = -cPlayerBaseSpeed;
+        moveUp();
     else if(input.isKeyHeld(SDL_SCANCODE_S))
-        m_Speed.y = cPlayerBaseSpeed;
+        moveDown();
     else if(!input.isKeyHeld(SDL_SCANCODE_W) && !input.isKeyHeld(SDL_SCANCODE_S))
-        m_Speed.y = 0.0f;
+        stopMoving();
 }
 

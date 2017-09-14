@@ -16,7 +16,7 @@ public:
                        float posX, float posY);
     ~GameObject();
 
-    virtual void update(float ms) = 0;
+    virtual void update(int ms) = 0;
     virtual void draw(Graphics& graphics);
 
 protected:

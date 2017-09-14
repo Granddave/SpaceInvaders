@@ -3,13 +3,20 @@
 
 #include <string>
 
-#define VSYNC 0
+#define FULLSCREEN 0
 
 namespace globals
 {
+#if FULLSCREEN
+    const int SCREEN_WIDTH = 1920;
+    const int SCREEN_HEIGHT = 1080;
+#else
     const int SCREEN_WIDTH = 720;
     const int SCREEN_HEIGHT = 540;
+#endif
     const int PIXEL_SCALE = 2;
+    const int FPS = 60;
+    const int MAX_FRAME_TIME = 1000 / FPS;
 
     const std::string WINDOW_TITLE = "Space Invaders";
 }

@@ -33,12 +33,19 @@ Graphics::~Graphics()
 bool Graphics::init()
 {
     bool success = true;
+
+    Uint32 windowFlags;
+#if FULLSCREEN
+    windowFlags = SDL_WINDOW_FULLSCREEN;
+#else
+    windowFlags = SDL_WINDOW_SHOWN;
+#endif
     m_Window = SDL_CreateWindow(globals::WINDOW_TITLE.c_str(),
                                 SDL_WINDOWPOS_UNDEFINED,
                                 SDL_WINDOWPOS_UNDEFINED,
                                 globals::SCREEN_WIDTH,
                                 globals::SCREEN_HEIGHT,
-                                SDL_WINDOW_SHOWN);
+                                windowFlags);
     if(m_Window == NULL)
     {
         std::cout << "Window could not be created!"
@@ -47,11 +54,7 @@ bool Graphics::init()
     }
     else
     {
-#if VSYNC
         Uint32 renderFlags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
-#else
-        Uint32 renderFlags = SDL_RENDERER_ACCELERATED;
-#endif
         m_Renderer = SDL_CreateRenderer(m_Window, -1, renderFlags);
 
         if(m_Renderer == NULL)

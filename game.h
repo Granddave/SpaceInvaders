@@ -8,22 +8,31 @@
 #include "button.h"
 #include "player.h"
 
+class GameState;
 
 class Game
 {
-
-
 public:
     Game();
 
-    bool run();
-    void draw(Graphics &graphics);
-    void update(float ms);
-    void close();
+    bool init();
+    void changeState(GameState* state);
+    void pushState(GameState* state);
+    void popState();
+
+    void handleEvents();
+    void update(int ms);
+    void draw();
+
+    void clean();
+
+    bool running()  { return m_Running; }
+    void quit()     { m_Running = false; }
 
 private:
-    Player* m_Player;
-    Button* m_Button;
+    std::vector<GameState*> m_States;
+    Graphics m_Graphics;
+    bool m_Running;
 };
 
 #endif // GAME_H

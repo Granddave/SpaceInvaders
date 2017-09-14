@@ -16,6 +16,13 @@ void Timer::start()
     m_PausedTicks = 0;
 }
 
+Uint32 Timer::restart()
+{
+    Uint32 tempTicks = getTicks();
+    start();
+    return tempTicks;
+}
+
 void Timer::stop()
 {
     m_Started = false;

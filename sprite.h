@@ -11,13 +11,13 @@ class Sprite
 {
 public:
     Sprite();
-    Sprite(Graphics& graphics, const std::string& filePath,
+    Sprite(Graphics* graphics, const std::string& filePath,
            int srcX, int srcY, int width, int height);
 
     virtual ~Sprite();
     virtual void update();
 
-    void draw(Graphics& graphics, int x, int y);
+    void draw(Graphics* graphics, int x, int y);
 
     SDL_Rect getRect();
 

@@ -2,6 +2,7 @@
 #define MENUSTATE_H
 
 #include <SDL.h>
+#include <vector>
 #include "gamestate.h"
 #include "graphics.h"
 #include "input.h"
@@ -18,7 +19,7 @@ public:
 
     void handleEvents(Game* game);
     void update(Game* game, int ms);
-    void draw(Graphics& graphics);
+    void draw();
 
     static MenuState* instance()
     {
@@ -26,14 +27,13 @@ public:
     }
 
 protected:
-    MenuState() {}
+    MenuState() { m_Graphics = NULL; }
 
 private:
     static MenuState m_MenuState;
     Input m_Input;
 
-    Button* m_Button;
-
+    std::vector<Button*> m_Buttons;
 };
 
 #endif // MENUSTATE_H

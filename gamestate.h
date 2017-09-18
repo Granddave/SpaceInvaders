@@ -15,7 +15,7 @@ public:
 
     virtual void handleEvents(Game* game) = 0;
     virtual void update(Game* game, int ms) = 0;
-    virtual void draw(Graphics& graphics) = 0;
+    virtual void draw() = 0;
 
     void ChangeState(Game* game, GameState* state);
 

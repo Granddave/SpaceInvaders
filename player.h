@@ -7,7 +7,7 @@
 class Player : public Entity
 {
 public:
-    Player(Graphics& graphics, const std::string& filePath,
+    Player(Graphics* graphics, const std::string& filePath,
            int srcX, int srcY, int width, int height,
            float posX, float posY, Vec2f speed);
     ~Player();
@@ -19,7 +19,7 @@ public:
     void stopMoving();
 
     void update(int ms) override;
-    void draw(Graphics &graphics) override;
+    void draw(Graphics *graphics) override;
 
     void handleInput(Input& input);
 

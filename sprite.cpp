@@ -10,12 +10,11 @@ Sprite::Sprite()
 
 }
 
-Sprite::Sprite(Graphics &graphics, const std::string &filePath,
+Sprite::Sprite(Graphics* graphics, const std::string& filePath,
                int srcX, int srcY, int width, int height)
     : m_SrcRect({srcX, srcY, width, height})
 {
-    m_SpriteSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(),
-                                                 graphics.loadImage(filePath));
+    m_SpriteSheet = graphics->loadTexture(filePath);
     if(m_SpriteSheet == NULL)
     {
         std::cout << "Unable to optimize image " << filePath
@@ -34,13 +33,13 @@ void Sprite::update()
 
 }
 
-void Sprite::draw(Graphics &graphics, int x, int y)
+void Sprite::draw(Graphics* graphics, int x, int y)
 {
     SDL_Rect destRect = {x, y,
                          m_SrcRect.w * globals::PIXEL_SCALE,
                          m_SrcRect.h * globals::PIXEL_SCALE};
 
-    graphics.blitSurface(m_SpriteSheet, &m_SrcRect, &destRect);
+    graphics->blitSurface(m_SpriteSheet, &m_SrcRect, &destRect);
 }
 
 SDL_Rect Sprite::getRect()

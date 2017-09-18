@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <map>
+#include <memory>
 #include <string>
 
 #include "sprite.h"
@@ -15,7 +16,7 @@ public:
 
     bool init();
 
-    SDL_Surface* loadImage(const std::string &filePath);
+    SDL_Texture* loadTexture(const std::string &filePath);
 
     void blitSurface(SDL_Texture* texture,
                      SDL_Rect* srcRect,
@@ -28,7 +29,7 @@ private:
     SDL_Window* m_Window;
     SDL_Renderer* m_Renderer;
 
-    std::map<std::string, SDL_Surface*> m_SpriteSheets;
+    std::map<std::string, SDL_Texture*> m_SpriteSheets;
 };
 
 #endif // GRAPHICS_H

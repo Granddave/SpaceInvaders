@@ -7,7 +7,7 @@
 class Entity : public GameObject
 {
 public:
-    Entity(Graphics& graphics, const std::string& filePath,
+    Entity(Graphics* graphics, const std::string& filePath,
            int srcX, int srcY, int width, int height,
            float posX, float posY, Vec2f speed);
 

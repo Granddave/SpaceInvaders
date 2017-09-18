@@ -1,7 +1,10 @@
 #include "button.h"
 #include <iostream>
-Button::Button(int x, int y, int w, int h)
-    : m_Rect({x, y, w, h}), m_Alpha(10), m_State(BUTTON_MOUSE_OUT)
+Button::Button(const char *text, int x, int y, int w, int h)
+    : m_Text(text),
+      m_Rect({x, y, w, h}),
+      m_Alpha(10),
+      m_State(BUTTON_MOUSE_OUT)
 {
 
 }
@@ -9,6 +12,11 @@ Button::Button(int x, int y, int w, int h)
 void Button::setRect(const SDL_Rect &rect)
 {
     m_Rect = rect;
+}
+
+void Button::setText(const char *text)
+{
+    m_Text = text;
 }
 
 SDL_Rect Button::rect()
@@ -73,9 +81,9 @@ void Button::handleEvents(SDL_Event& e)
     }
 }
 
-void Button::draw(Graphics &graphics)
+void Button::draw(Graphics *graphics)
 {
-    SDL_Renderer* r = graphics.getRenderer();
+    SDL_Renderer* r = graphics->getRenderer();
 
     switch(m_State)
     {

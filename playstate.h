@@ -17,7 +17,7 @@ public:
 
     void handleEvents(Game* game);
     void update(Game* game, int ms);
-    void draw(Graphics& graphics);
+    void draw();
 
     static PlayState* instance()
     {
@@ -25,14 +25,13 @@ public:
     }
 
 protected:
-    PlayState() {}
+    PlayState() { m_Graphics = NULL; }
 
 private:
     static PlayState m_PlayState;
     Input m_Input;
 
     Player* m_Player;
-
 };
 
 #endif // PLAYSTATE_H

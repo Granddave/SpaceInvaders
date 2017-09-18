@@ -7,13 +7,18 @@ PlayState PlayState::m_PlayState;
 void PlayState::init(Graphics *graphics)
 {
     m_Graphics = graphics;
-    m_Player = new Player(*m_Graphics, "resources/spaceinvaders.png",
-                          50, 2, 13, 10, 0, 0, Vec2f::zero());
+
+    const int w = 11;
+    m_Player = new Player(m_Graphics, "resources/spaceinvaders.png",
+                          51, 3, w, 8,
+                          globals::SCREEN_WIDTH / 2 - w / 2,
+                          globals::SCREEN_HEIGHT * 0.9f,
+                          Vec2f::zero());
 }
 
 void PlayState::clean()
 {
-
+    delete m_Player;
 }
 
 void PlayState::pause()
@@ -69,7 +74,7 @@ void PlayState::update(Game *game, int ms)
     m_Player->update(ms);
 }
 
-void PlayState::draw(Graphics &graphics)
+void PlayState::draw()
 {
-    m_Player->draw(graphics);
+    m_Player->draw(m_Graphics);
 }

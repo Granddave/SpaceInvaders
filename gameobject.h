@@ -11,13 +11,13 @@
 class GameObject
 {
 public:
-    GameObject(Graphics& graphics, const std::string& filePath,
+    GameObject(Graphics *graphics, const std::string& filePath,
                        int srcX, int srcY, int width, int height,
                        float posX, float posY);
     ~GameObject();
 
     virtual void update(int ms) = 0;
-    virtual void draw(Graphics& graphics);
+    virtual void draw(Graphics* graphics);
 
 protected:
     Vec2f m_Pos;

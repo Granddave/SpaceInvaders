@@ -17,7 +17,7 @@ public:
 
     void handleEvents(Game* game);
     void update(Game* game, int ms);
-    void draw(Graphics& graphics);
+    void draw();
 
     static PauseState* instance()
     {
@@ -25,7 +25,7 @@ public:
     }
 
 protected:
-    PauseState() {}
+    PauseState() { m_Graphics = NULL; }
 
 private:
     static PauseState m_PauseState;

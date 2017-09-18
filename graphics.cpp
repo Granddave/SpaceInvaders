@@ -13,12 +13,12 @@ Graphics::Graphics()
 Graphics::~Graphics()
 {
     // Todo: delete SpriteSheets
-    /*
-    for (auto const &x : m_SpriteSheets)
+    for (auto it = m_SpriteSheets.begin(); it != m_SpriteSheets.end(); ++it)
     {
-        delete x.second;
+        SDL_DestroyTexture(it->second);
     }
-    */
+    m_SpriteSheets.clear();
+
 
 
     SDL_DestroyRenderer(m_Renderer);
@@ -87,7 +87,7 @@ bool Graphics::init()
     return success;
 }
 
-SDL_Surface *Graphics::loadImage(const std::string &filePath)
+SDL_Texture *Graphics::loadTexture(const std::string &filePath)
 {
     if(m_SpriteSheets.count(filePath) == 0)
     {
@@ -97,7 +97,8 @@ SDL_Surface *Graphics::loadImage(const std::string &filePath)
                         SDL_MapRGB(m_SpriteSheets[filePath]->format,
                                    0, 0x80, 0xFF));
     }
-    return m_SpriteSheets[filePath];
+
+    return SDL_CreateTextureFromSurface(m_Renderer, m_SpriteSheets[filePath]);
 }
 
 void Graphics::blitSurface(SDL_Texture* texture,

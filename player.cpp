@@ -3,7 +3,7 @@
 
 const float cPlayerBaseSpeed = 0.5f;
 
-Player::Player(Graphics &graphics, const std::string &filePath,
+Player::Player(Graphics *graphics, const std::string &filePath,
                int srcX, int srcY, int width, int height,
                float posX, float posY, Vec2f speed)
     : Entity(graphics, filePath, srcX, srcY, width, height, posX, posY, speed)
@@ -66,7 +66,7 @@ void Player::update(int ms)
     m_Pos.y += m_Speed.y * ms;
 }
 
-void Player::draw(Graphics &graphics)
+void Player::draw(Graphics* graphics)
 {
     if(m_Alive)
         m_Sprite->draw(graphics, m_Pos.x, m_Pos.y);

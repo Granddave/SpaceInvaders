@@ -66,8 +66,7 @@ void PauseState::update(Game *game, int ms)
 
 }
 
-void PauseState::draw(Graphics &graphics)
+void PauseState::draw()
 {
-    (void) graphics;
 
 }

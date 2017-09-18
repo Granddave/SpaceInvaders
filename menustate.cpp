@@ -7,12 +7,27 @@ MenuState MenuState::m_MenuState;
 void MenuState::init(Graphics* graphics)
 {
     m_Graphics = graphics;
-    m_Button = new Button(100, 100, 150, 100);
+    const int num = 2;
+    const int w = 200;
+    const int h = 50;
+    const int padding = 20; // Height space
+
+    for(int i = 0; i < num; i++)
+    {
+        m_Buttons.push_back(new Button("",
+                                       globals::SCREEN_WIDTH / 2 - w / 2,
+                                       (globals::SCREEN_HEIGHT / 2 - ((num) * h + (num - 1) * padding) / 2)
+                                       + i * h + padding * i,
+                                       w, h));
+    }
+    m_Buttons[0]->setText("Start game");
+    m_Buttons[1]->setText("Exit");
 }
 
 void MenuState::clean()
 {
-    delete m_Button;
+    for(auto const& b: m_Buttons)
+         delete b;
 }
 
 void MenuState::pause()
@@ -53,11 +68,15 @@ void MenuState::handleEvents(Game *game)
         }
     }
 
-    m_Button->handleEvents(event);
+    for(auto const& b: m_Buttons)
+        b->handleEvents(event);
 
-    if(m_Button->state() == Button::BUTTON_MOUSE_DOWN)
+    if(m_Buttons[0]->state() == Button::BUTTON_MOUSE_DOWN)
         game->changeState(PlayState::instance());
-    else if(m_Input.wasKeyPressed(SDL_SCANCODE_ESCAPE))
+    if(m_Buttons[1]->state() == Button::BUTTON_MOUSE_DOWN)
+        game->quit();
+
+    if(m_Input.wasKeyPressed(SDL_SCANCODE_ESCAPE))
         game->quit();
 }
 
@@ -65,14 +84,10 @@ void MenuState::update(Game *game, int ms)
 {
     (void) game;
     (void) ms;
-#if 0
-    SDL_Rect temp = m_Button->rect();
-    temp.x += 1 * ms;
-    m_Button->setRect(temp);
-#endif
 }
 
-void MenuState::draw(Graphics &graphics)
+void MenuState::draw()
 {
-    m_Button->draw(graphics);
+    for(auto const& b: m_Buttons)
+         b->draw(m_Graphics);
 }

@@ -3,19 +3,20 @@
 
 #include <SDL.h>
 #include "graphics.h"
-
+#include <string.h>
 
 class Button
 {
 public:
-    Button(int x, int y, int w, int h);
+    Button(const char* text, int x, int y, int w, int h);
 
     void setRect(const SDL_Rect& rect);
+    void setText(const char* text);
     SDL_Rect rect();
     int state();
 
     void handleEvents(SDL_Event &e);
-    void draw(Graphics& graphics);
+    void draw(Graphics* graphics);
 
     enum buttonState
     {
@@ -25,6 +26,7 @@ public:
         BUTTON_MOUSE_UP
     };
 private:
+    std::string m_Text;
     SDL_Rect m_Rect;
     Uint8 m_Alpha;
     buttonState m_State;

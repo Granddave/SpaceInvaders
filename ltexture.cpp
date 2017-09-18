@@ -19,7 +19,7 @@ bool LTexture::loadFromFile(std::string path)
 
     SDL_Texture* newTexture = NULL;
 
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+    SDL_Texture* loadedSurface = IMG_Load(path.c_str());
     if(loadedSurface == NULL)
     {
         std::cout << "Unable to load image"
@@ -62,7 +62,7 @@ bool LTexture::loadFromRenderedText(std::string textureText,
 {
     free();
 
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font,
+    SDL_Texture* textSurface = TTF_RenderText_Solid(font,
                                                     textureText.c_str(),
                                                     textColor);
 

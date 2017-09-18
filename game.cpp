@@ -82,7 +82,7 @@ void Game::draw()
 {
     m_Graphics.clear();
 
-    m_States.back()->draw(m_Graphics);
+    m_States.back()->draw();
 
     m_Graphics.flip();
 }

@@ -15,7 +15,7 @@ Graphics::~Graphics()
     // Todo: delete SpriteSheets
     for (auto it = m_SpriteSheets.begin(); it != m_SpriteSheets.end(); ++it)
     {
-        SDL_DestroyTexture(it->second);
+        SDL_FreeSurface(it->second);
     }
     m_SpriteSheets.clear();
 
@@ -34,32 +34,75 @@ bool Graphics::init()
 {
     bool success = true;
 
+    SDL_DisplayMode displayMode;
+
+    int displayInUse = 0; // Current display
+    int numDisplayModes = SDL_GetNumDisplayModes(displayInUse);
+    if (numDisplayModes < 1)
+    {
+        std::cout << "Could not get number of display modes! "
+                  << "SDL_Error: " << SDL_GetError() << std::endl;
+        success = false;
+    }
+
+    std::cout << "Number of display modes: " << numDisplayModes << std::endl;
+
+    SDL_GetDesktopDisplayMode(0, &displayMode);
+    std::cout << displayMode.w << "x" << displayMode.h << '\n';
+
+    /*
+    for(int i = 0; i < numDisplayModes; i++)
+    {
+        if(SDL_GetDisplayMode(displayInUse, i, &m_DisplayMode) != 0)
+        {
+            std::cout << "Get display mode failed! "
+                      << "SDL_Error: " << SDL_GetError() << std::endl;
+            success = false;
+        }
+        std::cout << m_DisplayMode.w << "x" << m_DisplayMode.h << '\n';
+    }
+    */
+
+
     Uint32 windowFlags;
+    int w, h;
+
 #if FULLSCREEN
     windowFlags = SDL_WINDOW_FULLSCREEN;
+    w = displayMode.w;
+    h = displayMode.h;
 #else
     windowFlags = SDL_WINDOW_SHOWN;
+    w = globals::SCREEN_WIDTH;
+    h = globals::SCREEN_HEIGHT;
 #endif
     m_Window = SDL_CreateWindow(globals::WINDOW_TITLE.c_str(),
                                 SDL_WINDOWPOS_UNDEFINED,
                                 SDL_WINDOWPOS_UNDEFINED,
-                                globals::SCREEN_WIDTH,
-                                globals::SCREEN_HEIGHT,
+                                w, h,
                                 windowFlags);
     if(m_Window == NULL)
     {
-        std::cout << "Window could not be created!"
+        std::cout << "Window could not be created! "
                   << "SDL_Error: " << SDL_GetError() << std::endl;
         success = false;
     }
     else
     {
-        Uint32 renderFlags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+        Uint32 renderFlags = 0;
+        if(globals::ACCELERATED_GRAPHICS)
+            renderFlags = renderFlags | SDL_RENDERER_ACCELERATED;
+        else
+            renderFlags = renderFlags | SDL_RENDERER_SOFTWARE;
+
+        if(globals::VSYNC_SDL && globals::ACCELERATED_GRAPHICS)
+            renderFlags = renderFlags | SDL_RENDERER_PRESENTVSYNC;
+
         m_Renderer = SDL_CreateRenderer(m_Window, -1, renderFlags);
 
         if(m_Renderer == NULL)
         {
-            std::cout << "Renderer could not be created!"
+            std::cout << "Renderer could not be created! "
                       << "SDL_Error: " << SDL_GetError() << std::endl;
             success = false;
         }

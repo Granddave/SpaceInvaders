@@ -1,17 +1,13 @@
 #include "player.h"
 #include <iostream>
 
-const float cPlayerBaseSpeed = 0.5f;
+const float cPlayerBaseSpeed = 0.8f;
+const float cPlayerDampSpeed = 0.004f;
 
 Player::Player(Graphics *graphics, const std::string &filePath,
                int srcX, int srcY, int width, int height,
                float posX, float posY, Vec2f speed)
     : Entity(graphics, filePath, srcX, srcY, width, height, posX, posY, speed)
-{
-
-}
-
-Player::~Player()
 {
 
 }
@@ -50,15 +46,15 @@ void Player::update(int ms)
     if(!m_IsMoving)
     {
         if(m_Speed.x < -0.03f)
-            m_Speed.x = m_Speed.x + 0.002f * ms;
+            m_Speed.x = m_Speed.x + cPlayerDampSpeed * ms;
         else if(m_Speed.x > 0.03f)
-            m_Speed.x = m_Speed.x - 0.002f * ms;
+            m_Speed.x = m_Speed.x - cPlayerDampSpeed * ms;
         else m_Speed.x = 0;
 
         if(m_Speed.y < -0.03f)
-            m_Speed.y = m_Speed.y + 0.002f * ms;
+            m_Speed.y = m_Speed.y + cPlayerDampSpeed * ms;
         else if(m_Speed.y > 0.03f)
-            m_Speed.y = m_Speed.y - 0.002f * ms;
+            m_Speed.y = m_Speed.y - cPlayerDampSpeed * ms;
         else m_Speed.y = 0;
     }
 
@@ -94,4 +90,3 @@ void Player::handleInput(Input &input)
     else if(!input.isKeyHeld(SDL_SCANCODE_W) && !input.isKeyHeld(SDL_SCANCODE_S))
         stopMoving();
 }
-

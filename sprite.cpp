@@ -5,11 +5,6 @@
 #include <string>
 #include <iostream>
 
-Sprite::Sprite()
-{
-
-}
-
 Sprite::Sprite(Graphics* graphics, const std::string& filePath,
                int srcX, int srcY, int width, int height)
     : m_SrcRect({srcX, srcY, width, height})
@@ -21,16 +16,6 @@ Sprite::Sprite(Graphics* graphics, const std::string& filePath,
                   << "SDL_Error: " << SDL_GetError()
                   << std::endl;
     }
-}
-
-Sprite::~Sprite()
-{
-
-}
-
-void Sprite::update()
-{
-
 }
 
 void Sprite::draw(Graphics* graphics, int x, int y)
@@ -46,4 +31,3 @@ SDL_Rect Sprite::getRect()
 {
     return m_SrcRect;
 }
-

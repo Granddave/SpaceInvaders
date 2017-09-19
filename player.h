@@ -10,7 +10,6 @@ public:
     Player(Graphics* graphics, const std::string& filePath,
            int srcX, int srcY, int width, int height,
            float posX, float posY, Vec2f speed);
-    ~Player();
 
     void moveLeft();
     void moveRight();
@@ -22,7 +21,6 @@ public:
     void draw(Graphics *graphics) override;
 
     void handleInput(Input& input);
-
 };
 
 #endif // PLAYER_H

@@ -3,18 +3,23 @@
 
 #include <string>
 
-#define FULLSCREEN 0
+#define FULLSCREEN 1
+#define PRINT_FPS 1
 
 namespace globals
 {
 #if FULLSCREEN
+    const int PIXEL_SCALE = 4;
     const int SCREEN_WIDTH = 1920;
     const int SCREEN_HEIGHT = 1080;
 #else
+    const int PIXEL_SCALE = 2;
     const int SCREEN_WIDTH = 720;
     const int SCREEN_HEIGHT = 540;
 #endif
-    const int PIXEL_SCALE = 2;
+    const bool ACCELERATED_GRAPHICS = false;
+    const bool VSYNC_SDL = true;
+    const int MENU_SCALE = PIXEL_SCALE / 2;
     const int FPS = 60;
     const int MAX_FRAME_TIME = 1000 / FPS;
 

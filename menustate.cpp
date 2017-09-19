@@ -8,9 +8,9 @@ void MenuState::init(Graphics* graphics)
 {
     m_Graphics = graphics;
     const int num = 2;
-    const int w = 200;
-    const int h = 50;
-    const int padding = 20; // Height space
+    const int w = 200 * globals::MENU_SCALE;
+    const int h = 50 * globals::MENU_SCALE;
+    const int padding = 20 * globals::MENU_SCALE; // Height space
 
     for(int i = 0; i < num; i++)
     {

@@ -6,16 +6,16 @@ CONFIG -= qt
 TARGET = SpaceInvaders
 
 LIBS += \
-    -LD:/Dev/SDL2-2.0.5/lib/x86 -lSDL2 \
-    -LD:/Dev/SDL2_image-2.0.1/lib/x86 -lSDL2_image \
-    -LD:/Dev/SDL2_ttf-2.0.14/lib/x86 -lSDL2_ttf \
-    -LD:/Dev/SDL2_mixer-2.0.1/lib/x86 -lSDL2_mixer
+    -LC:/Dev/SDL2-2.0.5/lib/x86 -lSDL2 \
+    -LC:/Dev/SDL2_image-2.0.1/lib/x86 -lSDL2_image \
+    -LC:/Dev/SDL2_ttf-2.0.14/lib/x86 -lSDL2_ttf \
+    -LC:/Dev/SDL2_mixer-2.0.1/lib/x86 -lSDL2_mixer
 
 INCLUDEPATH += \
-    D:/Dev/SDL2-2.0.5/include \
-    D:/Dev/SDL2_image-2.0.1/include \
-    D:/Dev/SDL2_ttf-2.0.14/include \
-    D:/Dev/SDL2_mixer-2.0.1/include
+    C:/Dev/SDL2-2.0.5/include \
+    C:/Dev/SDL2_image-2.0.1/include \
+    C:/Dev/SDL2_ttf-2.0.14/include \
+    C:/Dev/SDL2_mixer-2.0.1/include
 
 
 resources.path = $$OUT_PWD/resources
@@ -25,7 +25,6 @@ INSTALLS += \
     resources
 
 SOURCES += main.cpp \
-    ltexture.cpp \
     game.cpp \
     graphics.cpp \
     input.cpp \
@@ -41,7 +40,6 @@ SOURCES += main.cpp \
     button.cpp
 
 HEADERS += \
-    ltexture.h \
     game.h \
     graphics.h \
     input.h \

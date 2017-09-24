@@ -13,7 +13,10 @@ public:
     Sprite(Graphics* graphics, const std::string& filePath,
            int srcX, int srcY, int width, int height);
 
-    void draw(Graphics* graphics, int x, int y);
+    void draw(Graphics* graphics, const int x, const int y, const float scale = 1.0f);
+    void draw(Graphics* graphics, int x, int y, const double angle,
+              const SDL_Point* center, const SDL_RendererFlip flip,
+              float scale = 1.0f);
     SDL_Rect getRect();
 
 private:

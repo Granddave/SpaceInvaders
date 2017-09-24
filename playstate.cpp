@@ -8,12 +8,7 @@ void PlayState::init(Graphics *graphics)
 {
     m_Graphics = graphics;
 
-    const int w = 11;
-    m_Player = new Player(m_Graphics, "resources/spaceinvaders.png",
-                          51, 3, w, 8,
-                          globals::SCREEN_WIDTH / 2 - w / 2,
-                          globals::SCREEN_HEIGHT * 0.9f,
-                          Vec2f::zero());
+    m_Player = new Player(m_Graphics);
 }
 
 void PlayState::clean()
@@ -53,6 +48,14 @@ void PlayState::handleEvents(Game *game)
 
         case SDL_KEYUP:
             m_Input.keyUpEvent(event);
+        break;
+
+        case SDL_MOUSEBUTTONDOWN:
+            m_Input.mouseDownEvent(event);
+        break;
+
+        case SDL_MOUSEBUTTONUP:
+            m_Input.mouseUpEvent(event);
         break;
 
         default:

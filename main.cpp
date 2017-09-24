@@ -6,7 +6,7 @@
 #include "globals.h"
 #include "timer.h"
 
-#undef main
+#undef main // SDL main function
 int main(int argc, char* argv[])
 {
     (void) argc, argv;
@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
     if(!game.init())
     {
         game.clean();
-        return 1;
+        return -1;
     }
 
     game.changeState(MenuState::instance());
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
             secondTimer.restart();
         }
 #endif
-        game.update(std::min((int)updateTimer.getTicks(), (int)globals::MAX_FRAME_TIME));
+        game.update(std::min((int)updateTimer.getTicks(), Graphics::s_MaxFrameTime));
         updateTimer.restart();
 
         game.draw();

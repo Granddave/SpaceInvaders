@@ -5,9 +5,32 @@
 #include <SDL_ttf.h>
 #include <SDL_image.h>
 
+static const int INIT_SCREEN_WIDTH = 1280;
+static const int INIT_SCREEN_HEIGHT = 720;
+
+bool Graphics::s_Fullscreen = false;
+bool Graphics::s_AcceleratedGraphics = true;
+bool Graphics::s_VSyncSDL = true;
+int Graphics::s_ScreenWidth = INIT_SCREEN_WIDTH;
+int Graphics::s_ScreenHeight = INIT_SCREEN_HEIGHT;
+float Graphics::s_Scale = 1.0f;
+int Graphics::s_FPS = 60;
+int Graphics::s_MaxFrameTime = 1000 / Graphics::s_FPS;
+std::string Graphics::s_WindowTitle = "Space Invaders";
+
 Graphics::Graphics()
 {
-
+    if(s_Fullscreen)
+    {
+        s_ScreenWidth = 1920;
+        s_ScreenHeight = 1080;
+    }
+    else
+    {
+        s_ScreenWidth = 1280;
+        s_ScreenHeight = 720;
+    }
+    s_Scale *= (float)(s_ScreenWidth) / (float)(INIT_SCREEN_WIDTH);
 }
 
 Graphics::~Graphics()
@@ -18,8 +41,6 @@ Graphics::~Graphics()
         SDL_FreeSurface(it->second);
     }
     m_SpriteSheets.clear();
-
-
 
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
@@ -64,22 +85,12 @@ bool Graphics::init()
     */
 
 
-    Uint32 windowFlags;
-    int w, h;
+    Uint32 windowFlags = s_Fullscreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_SHOWN;
 
-#if FULLSCREEN
-    windowFlags = SDL_WINDOW_FULLSCREEN;
-    w = displayMode.w;
-    h = displayMode.h;
-#else
-    windowFlags = SDL_WINDOW_SHOWN;
-    w = globals::SCREEN_WIDTH;
-    h = globals::SCREEN_HEIGHT;
-#endif
-    m_Window = SDL_CreateWindow(globals::WINDOW_TITLE.c_str(),
+    m_Window = SDL_CreateWindow(Graphics::s_WindowTitle.c_str(),
                                 SDL_WINDOWPOS_UNDEFINED,
                                 SDL_WINDOWPOS_UNDEFINED,
-                                w, h,
+                                Graphics::s_ScreenWidth, Graphics::s_ScreenHeight,
                                 windowFlags);
     if(m_Window == NULL)
     {
@@ -90,12 +101,12 @@ bool Graphics::init()
     else
     {
         Uint32 renderFlags = 0;
-        if(globals::ACCELERATED_GRAPHICS)
+        if(Graphics::s_AcceleratedGraphics)
             renderFlags = renderFlags | SDL_RENDERER_ACCELERATED;
         else
             renderFlags = renderFlags | SDL_RENDERER_SOFTWARE;
 
-        if(globals::VSYNC_SDL && globals::ACCELERATED_GRAPHICS)
+        if(Graphics::s_VSyncSDL && Graphics::s_AcceleratedGraphics)
             renderFlags = renderFlags | SDL_RENDERER_PRESENTVSYNC;
 
         m_Renderer = SDL_CreateRenderer(m_Window, -1, renderFlags);
@@ -145,10 +156,20 @@ SDL_Texture *Graphics::loadTexture(const std::string &filePath)
 }
 
 void Graphics::blitSurface(SDL_Texture* texture,
-                           SDL_Rect* srcRect,
-                           SDL_Rect* destRect)
+                           const SDL_Rect* srcRect,
+                           const SDL_Rect* destRect)
 {
     SDL_RenderCopy(m_Renderer, texture, srcRect, destRect);
+}
+
+void Graphics::blitSurface(SDL_Texture* texture,
+                           const SDL_Rect* srcRect,
+                           const SDL_Rect* destRect,
+                           const double angle,
+                           const SDL_Point *center,
+                           const SDL_RendererFlip flip)
+{
+    SDL_RenderCopyEx(m_Renderer, texture, srcRect, destRect, angle, center, flip);
 }
 
 void Graphics::flip()

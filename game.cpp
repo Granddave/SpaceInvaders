@@ -5,6 +5,7 @@
 #include "gamestate.h"
 #include <iostream>
 #include <algorithm>
+#include <SDL_mixer.h>
 
 Game::Game()
 {
@@ -23,6 +24,11 @@ bool Game::init()
     if(!m_Graphics.init())
     {
         std::cout << "Could not initialize graphics module!" << std::endl;
+        return false;
+    }
+
+    if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+    {
         return false;
     }
 
@@ -94,6 +100,6 @@ void Game::clean()
         m_States.back()->clean();
         m_States.pop_back();
     }
-
+    Mix_CloseAudio();
     SDL_Quit();
 }

@@ -10,12 +10,9 @@ public:
     Entity(Graphics* graphics, const std::string& filePath,
            int srcX, int srcY, int width, int height,
            float posX, float posY, Vec2f speed);
-
-    ~Entity();
-
 protected:
-    Vec2f m_Speed;
-    bool m_IsMoving;
+    Vec2f m_Velocity;
+    Vec2f m_Acceleration;
     bool m_Alive;
 };
 

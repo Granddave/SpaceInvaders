@@ -57,7 +57,7 @@ Uint32 Timer::getTicks()
     Uint32 time = 0;
 
     if(m_Started)
-        time = m_PausedTicks ? m_Paused : (SDL_GetTicks() - m_StartTicks);
+        time = m_Paused ? m_PausedTicks : (SDL_GetTicks() - m_StartTicks);
 
     return time;
 }

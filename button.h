@@ -1,8 +1,9 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include <SDL2/SDL.h>
 #include "graphics.h"
+
+#include <SDL2/SDL.h>
 #include <string.h>
 
 class Button
@@ -10,9 +11,7 @@ class Button
 public:
     Button(const std::string text, int x, int y, int w, int h);
 
-    void setRect(const SDL_Rect& rect);
-    void setText(const char* text);
-    SDL_Rect rect();
+    void setText(const std::string text);
     int state();
 
     void handleEvents(SDL_Event &e);

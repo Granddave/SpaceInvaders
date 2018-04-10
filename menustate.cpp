@@ -13,7 +13,7 @@ void MenuState::init(Graphics* graphics)
 void MenuState::clean()
 {
     for(auto const& b: m_Buttons)
-         delete b;
+        delete b;
 }
 
 void MenuState::pause()

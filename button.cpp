@@ -1,4 +1,6 @@
 #include "button.h"
+#include "globals.h"
+
 #include <iostream>
 Button::Button(const std::string text, int x, int y, int w, int h)
     : m_Text(text),
@@ -9,19 +11,9 @@ Button::Button(const std::string text, int x, int y, int w, int h)
 
 }
 
-void Button::setRect(const SDL_Rect &rect)
-{
-    m_Rect = rect;
-}
-
-void Button::setText(const char *text)
+void Button::setText(const std::string text)
 {
     m_Text = text;
-}
-
-SDL_Rect Button::rect()
-{
-    return m_Rect;
 }
 
 int Button::state()
@@ -35,29 +27,10 @@ void Button::handleEvents(SDL_Event& e)
        e.type == SDL_MOUSEBUTTONDOWN ||
        e.type == SDL_MOUSEBUTTONUP)
     {
-        int x, y;
-        SDL_GetMouseState(&x, &y);
+        Vec2 p;
+        SDL_GetMouseState(&p.x, &p.y);
 
-        bool inside = true;
-
-        if(x < m_Rect.x)
-        {
-            inside = false;
-        }
-        else if(x > m_Rect.x + m_Rect.w)
-        {
-            inside = false;
-        }
-        else if(y < m_Rect.y)
-        {
-            inside = false;
-        }
-        else if(y > m_Rect.y + m_Rect.h)
-        {
-            inside = false;
-        }
-
-        if(!inside)
+        if(p.isInside(m_Rect) == false)
         {
             m_State = BUTTON_MOUSE_OUT;
         }
@@ -106,4 +79,3 @@ void Button::draw(Graphics *graphics)
     SDL_RenderFillRect(r, &m_Rect);
     SDL_SetRenderDrawColor(r, 0, 0, 0, 255);
 }
-

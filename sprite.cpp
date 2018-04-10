@@ -12,7 +12,7 @@ Sprite::Sprite(Graphics* graphics, const std::string& filePath,
     m_SpriteSheet = graphics->loadTexture(filePath);
     if(m_SpriteSheet == NULL)
     {
-        std::cout << "Unable to optimize image " << filePath
+        std::cout << "Unable to load image " << filePath
                   << "SDL_Error: " << SDL_GetError()
                   << std::endl;
     }

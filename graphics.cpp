@@ -94,7 +94,7 @@ bool Graphics::init()
                                 windowFlags);
     if(m_Window == NULL)
     {
-        std::cout << "Window could not be created! "
+        std::cout << "Window could not be created!\n"
                   << "SDL_Error: " << SDL_GetError() << std::endl;
         success = false;
     }
@@ -113,7 +113,7 @@ bool Graphics::init()
 
         if(m_Renderer == NULL)
         {
-            std::cout << "Renderer could not be created! "
+            std::cout << "Renderer could not be created!\n"
                       << "SDL_Error: " << SDL_GetError() << std::endl;
             success = false;
         }
@@ -125,14 +125,14 @@ bool Graphics::init()
             int imgFlags = IMG_INIT_PNG;
             if(!(IMG_Init(imgFlags) & imgFlags))
             {
-                std::cout << "SDL_image could not initialize! "
+                std::cout << "SDL_image could not initialize!\n"
                           << "SDL_Error: " << IMG_GetError() << std::endl;
                 success = false;
             }
 
             if(TTF_Init() == -1)
             {
-                std::cout << "SDL_ttf could not initialized! "
+                std::cout << "SDL_ttf could not initialized!\n"
                           << "TTF_Error: " << TTF_GetError() << std::endl;
                 success = false;
             }
@@ -146,6 +146,12 @@ SDL_Texture *Graphics::loadTexture(const std::string &filePath)
     if(m_SpriteSheets.count(filePath) == 0)
     {
         m_SpriteSheets[filePath] = IMG_Load(filePath.c_str());
+
+        if (m_SpriteSheets[filePath] == NULL)
+        {
+            std::cout << "Could not load texture: " << filePath << "\n"
+                      << "IMG_Error: " << IMG_GetError() << std::endl;
+        }
 
         SDL_SetColorKey(m_SpriteSheets[filePath], SDL_TRUE,
                         SDL_MapRGB(m_SpriteSheets[filePath]->format,

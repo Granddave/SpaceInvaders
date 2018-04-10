@@ -9,7 +9,8 @@
 #undef main // SDL main function
 int main(int argc, char* argv[])
 {
-    (void) argc, argv;
+    (void) argc;
+    std::cout << argv[0] << std::endl;
 
     Game game;
     if(!game.init())

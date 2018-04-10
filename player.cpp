@@ -79,7 +79,7 @@ void Player::update(int ms)
 
     m_ShootCooldown = m_ShootCooldown > 0.0f ? m_ShootCooldown - ms : 0.0f;
 
-    for(int i = 0; i < m_Bullets.size(); i++)
+    for(size_t i = 0; i < m_Bullets.size(); i++)
         if (m_Bullets.at(i).deleteLater())
             m_Bullets.erase(m_Bullets.begin() + i);
 }

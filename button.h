@@ -8,7 +8,7 @@
 class Button
 {
 public:
-    Button(const char* text, int x, int y, int w, int h);
+    Button(const std::string text, int x, int y, int w, int h);
 
     void setRect(const SDL_Rect& rect);
     void setText(const char* text);

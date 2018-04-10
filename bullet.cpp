@@ -16,7 +16,6 @@ Bullet::Bullet(Graphics *graphics, float posX, float posY, int damage, Vec2f vel
 
 void Bullet::update(int ms)
 {
-
     m_Pos.x += m_Velocity.x * ms * Graphics::s_Scale;
     m_Pos.y += m_Velocity.y * ms * Graphics::s_Scale;
 

@@ -1,6 +1,6 @@
 #include "button.h"
 #include <iostream>
-Button::Button(const char *text, int x, int y, int w, int h)
+Button::Button(const std::string text, int x, int y, int w, int h)
     : m_Text(text),
       m_Rect({x, y, w, h}),
       m_Alpha(10),
@@ -100,6 +100,8 @@ void Button::draw(Graphics *graphics)
         SDL_SetRenderDrawColor(r, 0, 0, 255, m_Alpha);
     break;
     }
+
+    // Todo: Render text
 
     SDL_RenderFillRect(r, &m_Rect);
     SDL_SetRenderDrawColor(r, 0, 0, 0, 255);

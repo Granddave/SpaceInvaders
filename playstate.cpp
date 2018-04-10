@@ -8,7 +8,7 @@ void PlayState::init(Graphics *graphics)
 {
     m_Graphics = graphics;
 
-    m_Player = new Player(m_Graphics);
+    m_Player = new Player(m_Graphics); // Make a smart pointer
 }
 
 void PlayState::clean()

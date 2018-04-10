@@ -7,23 +7,7 @@ MenuState MenuState::m_MenuState;
 void MenuState::init(Graphics* graphics)
 {
     m_Graphics = graphics;
-    const int num = 2;
-    const int w = (int)(150 * Graphics::s_Scale);
-    const int h = (int)(30 * Graphics::s_Scale);
-    const int padding = (int)(20 * Graphics::s_Scale); // Height space
-
-    const int yPosConst = Graphics::s_ScreenHeight / 2 -
-                          ((num) * h + (num - 1) * padding) / 2;
-
-    for(int i = 0; i < num; i++)
-    {
-        m_Buttons.push_back(new Button("",
-                                       Graphics::s_ScreenWidth / 2 - w / 2,
-                                       yPosConst + i * h + padding * i,
-                                       w, h));
-    }
-    m_Buttons[0]->setText("Start game");
-    m_Buttons[1]->setText("Exit");
+    initButtons();
 }
 
 void MenuState::clean()
@@ -93,5 +77,26 @@ void MenuState::update(Game *game, int ms)
 void MenuState::draw()
 {
     for(auto const& b: m_Buttons)
-         b->draw(m_Graphics);
+        b->draw(m_Graphics);
+}
+
+void MenuState::initButtons()
+{
+    const int num = 2;
+    const int w = (int)(150 * Graphics::s_Scale);
+    const int h = (int)(30 * Graphics::s_Scale);
+    const int padding = (int)(20 * Graphics::s_Scale); // Height space
+
+    const int yPosConst = Graphics::s_ScreenHeight / 2 -
+                          ((num) * h + (num - 1) * padding) / 2;
+
+    for(int i = 0; i < num; i++)
+    {
+        m_Buttons.push_back(new Button("",
+                                       Graphics::s_ScreenWidth / 2 - w / 2,
+                                       yPosConst + i * h + padding * i,
+                                       w, h));
+    }
+    m_Buttons[0]->setText("Start game");
+    m_Buttons[1]->setText("Exit");
 }

@@ -48,7 +48,7 @@ private:
     SDL_Window* m_Window;
     SDL_Renderer* m_Renderer;
 
-    std::map<std::string, SDL_Texture*> m_SpriteSheets;
+    std::map<std::string, SDL_Surface*> m_SpriteSheets;
 };
 
 #endif // GRAPHICS_H

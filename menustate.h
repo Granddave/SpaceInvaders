@@ -30,6 +30,8 @@ protected:
     MenuState() { m_Graphics = NULL; }
 
 private:
+    void initButtons();
+
     static MenuState m_MenuState;
     Input m_Input;
 

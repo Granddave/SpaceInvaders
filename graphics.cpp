@@ -141,8 +141,9 @@ bool Graphics::init()
     return success;
 }
 
-SDL_Texture *Graphics::loadTexture(const std::string &filePath)
+SDL_Texture* Graphics::loadTexture(const std::string &filePath)
 {
+    // Todo: https://github.com/gonccalo/SDL-Game/blob/master/SDL-Game/TextureManager.cpp
     if(m_SpriteSheets.count(filePath) == 0)
     {
         m_SpriteSheets[filePath] = IMG_Load(filePath.c_str());
@@ -188,7 +189,7 @@ void Graphics::clear()
     SDL_RenderClear(m_Renderer);
 }
 
-SDL_Renderer *Graphics::getRenderer() const
+SDL_Renderer* Graphics::getRenderer() const
 {
     return m_Renderer;
 }

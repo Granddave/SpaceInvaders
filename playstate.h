@@ -1,7 +1,7 @@
 #ifndef PLAYSTATE_H
 #define PLAYSTATE_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "gamestate.h"
 #include "input.h"
 #include "player.h"

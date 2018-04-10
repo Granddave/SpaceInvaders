@@ -2,8 +2,8 @@
 #include <globals.h>
 
 #include <iostream>
-#include <SDL_ttf.h>
-#include <SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 
 static const int INIT_SCREEN_WIDTH = 1280;
 static const int INIT_SCREEN_HEIGHT = 720;

@@ -1,7 +1,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <memory>
 #include "globals.h"
 #include "graphics.h"

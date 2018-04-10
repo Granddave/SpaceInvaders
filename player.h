@@ -5,7 +5,7 @@
 #include "input.h"
 #include "bullet.h"
 #include <vector>
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 
 class Player : public Entity
 {

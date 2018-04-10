@@ -1,7 +1,7 @@
 #ifndef MENUSTATE_H
 #define MENUSTATE_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <vector>
 #include "gamestate.h"
 #include "graphics.h"

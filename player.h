@@ -11,7 +11,7 @@ class Player : public Entity
 {
 public:
     Player(Graphics* graphics, float posX = 0, float posY = 0);
-    ~Player();
+    virtual ~Player();
 
     void update(int ms) override;
     void draw(Graphics *graphics) override;

@@ -1,5 +1,6 @@
 #include "menustate.h"
 #include "playstate.h"
+
 #include <iostream>
 
 MenuState MenuState::m_MenuState;

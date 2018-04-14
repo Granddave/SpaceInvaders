@@ -1,14 +1,14 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
+#include "sprite.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_surface.h>
-#include "SDL2/SDL_image.h"
+#include <SDL2/SDL_image.h>
 #include <map>
 #include <memory>
 #include <string>
-
-#include "sprite.h"
 
 class Graphics
 {

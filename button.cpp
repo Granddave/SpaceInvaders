@@ -2,6 +2,7 @@
 #include "globals.h"
 
 #include <iostream>
+
 Button::Button(const std::string text, int x, int y, int w, int h)
     : m_Text(text),
       m_Rect({x, y, w, h}),

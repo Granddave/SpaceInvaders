@@ -4,6 +4,7 @@
 #include "entity.h"
 #include "input.h"
 #include "bullet.h"
+
 #include <vector>
 #include <SDL2/SDL_mixer.h>
 

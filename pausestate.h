@@ -1,10 +1,11 @@
 #ifndef PAUSESTATE_H
 #define PAUSESTATE_H
 
-#include <SDL2/SDL.h>
 #include "gamestate.h"
 #include "input.h"
 #include "button.h"
+
+#include <SDL2/SDL.h>
 
 class PauseState : public GameState
 {

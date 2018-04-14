@@ -1,12 +1,13 @@
 #ifndef MENUSTATE_H
 #define MENUSTATE_H
 
-#include <SDL2/SDL.h>
-#include <vector>
 #include "gamestate.h"
 #include "graphics.h"
 #include "input.h"
 #include "button.h"
+
+#include <SDL2/SDL.h>
+#include <vector>
 
 class MenuState : public GameState
 {

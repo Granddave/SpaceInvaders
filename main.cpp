@@ -1,12 +1,11 @@
-#include <iostream>
-#include <algorithm>
-
 #include "game.h"
 #include "menustate.h"
 #include "globals.h"
 #include "timer.h"
 
-#undef main // SDL main function
+#include <iostream>
+#include <algorithm>
+
 int main(int argc, char* argv[])
 {
     (void) argc;

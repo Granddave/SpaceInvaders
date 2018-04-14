@@ -1,12 +1,12 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include <SDL2/SDL.h>
-#include <memory>
 #include "globals.h"
 #include "graphics.h"
 #include "sprite.h"
 
+#include <SDL2/SDL.h>
+#include <memory>
 
 class GameObject
 {

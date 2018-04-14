@@ -1,5 +1,6 @@
 #include "pausestate.h"
 #include "playstate.h"
+
 #include <iostream>
 
 PauseState PauseState::m_PauseState;

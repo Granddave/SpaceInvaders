@@ -3,6 +3,7 @@
 #include "timer.h"
 #include "globals.h"
 #include "gamestate.h"
+
 #include <iostream>
 #include <algorithm>
 #include <SDL2/SDL_mixer.h>

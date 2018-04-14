@@ -55,7 +55,34 @@ void Player::update(int ms)
     m_Velocity.x = (std::abs(m_Velocity.x) > 0.001) ? (m_Velocity.x * 0.9f) : 0;
     m_Velocity.y = (std::abs(m_Velocity.y) > 0.001) ? (m_Velocity.y * 0.9f) : 0;
 
-    // Check window borders
+    checkBorderCollision();
+
+    // ---- Shooting ----
+    m_isShooting = false;
+    m_ShootCooldown = m_ShootCooldown > 0.0f ? m_ShootCooldown - ms : 0.0f;
+}
+
+void Player::draw(Graphics* graphics)
+{
+    if(m_Alive)
+        m_Sprite.draw(graphics, m_Pos.x, m_Pos.y, c_PlayerScale);
+}
+
+void Player::handleInput(Input &input)
+{
+    calcMovement(input);
+
+    if(checkIfShoot(input))
+    {
+        m_ShootCooldown = c_PlayerShootCooldown;
+        m_isShooting = true;
+        calcShootingVec();
+        playShootingSound();
+    }
+}
+
+void Player::checkBorderCollision()
+{
     if(m_Pos.x <= 0)
     {
         m_Pos.x = 0;
@@ -76,22 +103,10 @@ void Player::update(int ms)
         m_Pos.y = Graphics::s_ScreenHeight - m_Sprite.getRect().h * c_PlayerScale;
         m_Velocity.y = 0;
     }
-
-    // ---- Shooting ----
-    if (m_isShooting)
-        m_isShooting = false;
-    m_ShootCooldown = m_ShootCooldown > 0.0f ? m_ShootCooldown - ms : 0.0f;
 }
 
-void Player::draw(Graphics* graphics)
+void Player::calcMovement(Input &input)
 {
-    if(m_Alive)
-        m_Sprite.draw(graphics, m_Pos.x, m_Pos.y, c_PlayerScale);
-}
-
-void Player::handleInput(Input &input)
-{
-    // ---- Movement ----
     // Left - Right
     if(input.isKeyHeld(SDL_SCANCODE_A) && input.isKeyHeld(SDL_SCANCODE_D))
         m_Acceleration.x = 0;
@@ -111,42 +126,35 @@ void Player::handleInput(Input &input)
         m_Acceleration.y = c_PlayerAcceleration;
     else if(!input.isKeyHeld(SDL_SCANCODE_W) && !input.isKeyHeld(SDL_SCANCODE_S))
         m_Acceleration.y = 0;
+}
 
-    // ---- Shooting ----
-    if((input.isKeyHeld(SDL_SCANCODE_SPACE) || input.isButtonHeld(SDL_BUTTON_LEFT))
-            && m_ShootCooldown == 0.0f)
+bool Player::checkIfShoot(Input &input)
+{
+    return (input.isKeyHeld(SDL_SCANCODE_SPACE) || input.isButtonHeld(SDL_BUTTON_LEFT))
+            && m_ShootCooldown == 0.0f;
+}
+
+void Player::calcShootingVec()
+{
+    Vec2 mousePos;
+    SDL_GetMouseState(&mousePos.x, &mousePos.y);
+    m_ShootVec.x = mousePos.x - (m_Pos.x + m_ShootPos.x);
+    m_ShootVec.y = mousePos.y - (m_Pos.y + m_ShootPos.y);
+    m_ShootVec.normalize();
+    m_ShootVec.x = m_ShootVec.x * c_PlayerShootVelocity; // Todo: Refactor
+    m_ShootVec.y = m_ShootVec.y * c_PlayerShootVelocity;
+}
+
+void Player::playShootingSound()
+{
+    if(globals::sounds)
     {
-        m_ShootCooldown = c_PlayerShootCooldown;
-
-        // Calculate shooting angle
-        Vec2 mousePos;
-        SDL_GetMouseState(&mousePos.x, &mousePos.y);
-        m_ShootVec.x = mousePos.x - (m_Pos.x + m_ShootPos.x);
-        m_ShootVec.y = mousePos.y - (m_Pos.y + m_ShootPos.y);
-        m_ShootVec.normalize();
-        m_ShootVec.x = m_ShootVec.x * c_PlayerShootVelocity; // Todo: Refactor
-        m_ShootVec.y = m_ShootVec.y * c_PlayerShootVelocity;
-
-        m_isShooting = true;
-
-        /*
-        m_Bullets.emplace_back(m_Graphics,
-                               getPos().x + (m_Sprite.getRect().w *
-                                             Graphics::s_Scale *
-                                             c_PlayerScale) / 2,
-                               getPos().y, 10, dir);
-        */
-
-        // Play shooting sound
-        if(globals::sounds)
+        if(Mix_PlayChannel(-1, m_ShootSound, 0) == -1)
         {
-            if(Mix_PlayChannel(-1, m_ShootSound, 0) == -1)
-            {
-                std::cerr << "Could not play sound: m_ShootSound ";
-                if (m_ShootSound == NULL)
-                    std::cerr << "- I'ts NULL!";
-                std::cerr << std::endl;
-            }
+            std::cerr << "Could not play sound: m_ShootSound ";
+            if (m_ShootSound == NULL)
+                std::cerr << "- I'ts NULL!";
+            std::cerr << std::endl;
         }
     }
 }

@@ -25,6 +25,12 @@ public:
     bool isShooting() const { return m_isShooting; }
 
 private:
+    void checkBorderCollision();
+    void calcMovement(Input& input);
+    bool checkIfShoot(Input& input);
+    void calcShootingVec();
+    void playShootingSound();
+
     Graphics* m_Graphics;
     float m_ShootCooldown;
     Vec2f m_ShootPos;

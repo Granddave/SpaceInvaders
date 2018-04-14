@@ -4,8 +4,6 @@
 #include <string>
 #include <SDL2/SDL_rect.h>
 
-#define PRINT_FPS 0
-
 namespace globals {
     const bool sounds = false;
 }

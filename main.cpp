@@ -20,22 +20,22 @@ int main(int argc, char* argv[])
 
     game.changeState(MenuState::instance());
 
-#if PRINT_FPS
+    bool printFPS = false;
     Timer secondTimer;
-    secondTimer.start();
-#endif
+    if (printFPS)
+        secondTimer.start();
+
     Timer updateTimer;
     updateTimer.start();
     while(game.running())
     {
         game.handleEvents();
-#if PRINT_FPS
-        if(secondTimer.getTicks() > 1000)
+
+        if(printFPS && secondTimer.getTicks() > 1000)
         {
             std::cout << "Current FPS: " << 1000 / (updateTimer.getTicks() + 1)  << "\n";
             secondTimer.restart();
         }
-#endif
         game.update(std::min((int)updateTimer.getTicks(), Graphics::s_MaxFrameTime));
         updateTimer.restart();
 

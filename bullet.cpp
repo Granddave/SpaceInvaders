@@ -20,7 +20,6 @@ void Bullet::update(int ms)
     m_Pos.x += m_Velocity.x * ms * Graphics::s_Scale;
     m_Pos.y += m_Velocity.y * ms * Graphics::s_Scale;
 
-
     int w = Graphics::s_ScreenWidth;
     int h = Graphics::s_ScreenHeight;
     if(!m_Pos.isInside(SDL_Rect({0, 0, w, h})))

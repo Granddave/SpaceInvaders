@@ -16,6 +16,7 @@ public:
     Game();
 
     bool init();
+    void exec();
     void changeState(GameState* state);
     void pushState(GameState* state);
     void popState();

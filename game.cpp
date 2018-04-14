@@ -3,6 +3,7 @@
 #include "timer.h"
 #include "globals.h"
 #include "gamestate.h"
+#include "menustate.h"
 
 #include <iostream>
 #include <algorithm>
@@ -37,6 +38,35 @@ bool Game::init()
     std::cout << "Game is initialized successfully" << std::endl;
 
     return true;
+}
+
+void Game::exec()
+{
+    changeState(MenuState::instance());
+
+    bool printFPS = false;
+    Timer secondTimer;
+    if (printFPS)
+        secondTimer.start();
+
+    Timer updateTimer;
+    updateTimer.start();
+    while(running())
+    {
+        handleEvents();
+
+        if(printFPS && secondTimer.getTicks() > 1000)
+        {
+            std::cout << "Current FPS: " << 1000 / (updateTimer.getTicks() + 1)  << "\n";
+            secondTimer.restart();
+        }
+        update(std::min((int)updateTimer.getTicks(), Graphics::s_MaxFrameTime));
+        updateTimer.restart();
+
+        draw();
+    }
+
+    clean();
 }
 
 void Game::changeState(GameState *state)

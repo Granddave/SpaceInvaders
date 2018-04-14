@@ -18,12 +18,20 @@ public:
 
     void handleInput(Input& input);
 
+    Vec2f shootingPos() const { return m_Pos + m_ShootPos; }
+    Vec2f shootingVec() const { return m_ShootVec; }
+    float damage() const { return m_DamageBase * m_DamageMultiplier; }
+    bool isShooting() const { return m_isShooting; }
+
 private:
     Graphics* m_Graphics;
     float m_ShootCooldown;
-    Vec2 m_ShootPos;
+    Vec2f m_ShootPos;
+    Vec2f m_ShootVec;
+    bool m_isShooting;
+    float m_DamageBase;
+    float m_DamageMultiplier;
     Mix_Chunk* m_ShootSound;
-    std::vector<Bullet> m_Bullets;
 };
 
 #endif // PLAYER_H

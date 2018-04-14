@@ -5,6 +5,7 @@
 #include "gamestate.h"
 #include "input.h"
 #include "player.h"
+#include "bullet.h"
 
 class PlayState : public GameState
 {
@@ -32,6 +33,7 @@ private:
     Input m_Input;
 
     Player* m_Player;
+    std::vector<Bullet> m_PlayerBullets;
 };
 
 #endif // PLAYSTATE_H

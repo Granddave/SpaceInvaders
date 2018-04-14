@@ -20,6 +20,11 @@ struct Vec2{
         return ((this->x >= r.x) && (this->x < (r.x + r.w)) &&
                 (this->y >= r.y) && (this->y < (r.y + r.h)) ) ? true : false;
     }
+
+    Vec2 operator+ (const Vec2& other) const
+    {
+        return Vec2(x + other.x, y + other.y);
+    }
 };
 
 struct Vec2f{
@@ -31,6 +36,17 @@ struct Vec2f{
     {
         return ((this->x >= r.x) && (this->x < (r.x + r.w)) &&
                 (this->y >= r.y) && (this->y < (r.y + r.h)) ) ? true : false;
+    }
+    void normalize()
+    {
+        float dirLen = sqrt(this->x * this->x + this->y * this->y);
+        this->x = this->x / dirLen;
+        this->y = this->y / dirLen;
+    }
+
+    Vec2f operator+ (const Vec2f& other) const
+    {
+        return Vec2f(x + other.x, y + other.y);
     }
 };
 

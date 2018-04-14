@@ -18,7 +18,7 @@ public:
     void draw(Graphics* graphics, int x, int y, const double angle,
               const SDL_Point* center, const SDL_RendererFlip flip,
               float scale = 1.0f);
-    SDL_Rect getRect();
+    SDL_Rect getRect() const;
 
 private:
     SDL_Rect m_SrcRect;

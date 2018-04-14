@@ -39,7 +39,7 @@ void Sprite::draw(Graphics *graphics, int x, int y, const double angle,
                           flip);
 }
 
-SDL_Rect Sprite::getRect()
+SDL_Rect Sprite::getRect() const
 {
     return m_SrcRect;
 }

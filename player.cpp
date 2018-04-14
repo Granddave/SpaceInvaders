@@ -4,25 +4,31 @@
 #include <algorithm>
 
 const float c_PlayerAcceleration = 0.01f;
-const float c_PlayerBaseVel = 1.5f;
+const float c_PlayerBaseVel = 1.0f;
 const float c_PlayerDampVel = c_PlayerBaseVel * 0.007f;
 const float c_PlayerThreshholdSpeed = c_PlayerDampVel * 5.0f;
 const float c_PlayerScale = 3.0f;
 const float c_PlayerShootCooldown = 100.0f;
-const float c_PlayerShootVelocity = 2.0f;
+const float c_PlayerShootVelocity = 0.8f; //2.0f;
+const float c_PlayerShootDamage = 10.0f;
 
 Player::Player(Graphics *graphics,
                float posX, float posY)
     : Entity(graphics, "resources/spaceinvaders.png", 51, 3, 11, 8,
              posX, posY, Vec2f::zero()),
       m_ShootCooldown(0.0f),
-      m_ShootPos({5, 4})
+      m_ShootVec({0, 0}),
+      m_isShooting(false),
+      m_DamageBase(c_PlayerShootDamage),
+      m_DamageMultiplier(1)
 {
     setPos(Graphics::s_ScreenWidth / 2 -
                (getSize().x * c_PlayerScale * Graphics::s_Scale) / 2,
            Graphics::s_ScreenHeight* 0.9f);
+
+    m_ShootPos = {(m_Sprite.getRect().w* Graphics::s_Scale * c_PlayerScale) / 2, 0 };
+
     m_Graphics = graphics;
-    m_Bullets.reserve(2);
     m_ShootSound = Mix_LoadWAV("resources/shoot.wav");
 }
 
@@ -71,23 +77,13 @@ void Player::update(int ms)
     }
 
     // ---- Shooting ----
-    for(Bullet& b: m_Bullets) // Todo: Move to PlayState!
-        b.update(ms);
-
-    if (m_ShootCooldown == c_PlayerShootCooldown)
-        std::cout << "Shots alive: " << m_Bullets.size() << "\n";
-
+    if (m_isShooting)
+        m_isShooting = false;
     m_ShootCooldown = m_ShootCooldown > 0.0f ? m_ShootCooldown - ms : 0.0f;
-
-    for(size_t i = 0; i < m_Bullets.size(); i++)
-        if (m_Bullets.at(i).deleteLater())
-            m_Bullets.erase(m_Bullets.begin() + i);
 }
 
 void Player::draw(Graphics* graphics)
 {
-    for(Bullet& b: m_Bullets) // Todo: Move to PlayState!
-        b.draw(graphics);
     if(m_Alive)
         m_Sprite.draw(graphics, m_Pos.x, m_Pos.y, c_PlayerScale);
 }
@@ -124,18 +120,21 @@ void Player::handleInput(Input &input)
         // Calculate shooting angle
         Vec2 mousePos;
         SDL_GetMouseState(&mousePos.x, &mousePos.y);
-        Vec2f dir;
-        dir.x = mousePos.x - (m_Pos.x + m_ShootPos.x);
-        dir.y = mousePos.y - (m_Pos.y + m_ShootPos.y);
-        float dirLen = sqrt(dir.x * dir.x + dir.y * dir.y);
-        dir.x = dir.x / dirLen * c_PlayerShootVelocity;
-        dir.y = dir.y / dirLen * c_PlayerShootVelocity;
+        m_ShootVec.x = mousePos.x - (m_Pos.x + m_ShootPos.x);
+        m_ShootVec.y = mousePos.y - (m_Pos.y + m_ShootPos.y);
+        m_ShootVec.normalize();
+        m_ShootVec.x = m_ShootVec.x * c_PlayerShootVelocity; // Todo: Refactor
+        m_ShootVec.y = m_ShootVec.y * c_PlayerShootVelocity;
 
+        m_isShooting = true;
+
+        /*
         m_Bullets.emplace_back(m_Graphics,
                                getPos().x + (m_Sprite.getRect().w *
                                              Graphics::s_Scale *
                                              c_PlayerScale) / 2,
                                getPos().y, 10, dir);
+        */
 
         // Play shooting sound
         if(globals::sounds)

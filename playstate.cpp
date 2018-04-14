@@ -8,7 +8,8 @@ void PlayState::init(Graphics *graphics)
 {
     m_Graphics = graphics;
 
-    m_Player = new Player(m_Graphics); // Make a smart pointer
+    m_Player = new Player(m_Graphics);
+    m_PlayerBullets.reserve(2);
 }
 
 void PlayState::clean()
@@ -74,10 +75,33 @@ void PlayState::handleEvents(Game *game)
 void PlayState::update(Game *game, int ms)
 {
     (void) game;
+
+    // Bullets
+    for(Bullet& b: m_PlayerBullets)
+        b.update(ms);
+    if (m_Player->isShooting())
+    {
+        Vec2f pos = m_Player->shootingPos();
+        m_PlayerBullets.emplace_back(m_Graphics, pos.x, pos.y, m_Player->damage(),
+                                     m_Player->shootingVec());
+    }
+    for(size_t i = 0; i < m_PlayerBullets.size(); i++)
+    {
+        if (m_PlayerBullets.at(i).deleteLater())
+        {
+            m_PlayerBullets.erase(m_PlayerBullets.begin() + i);
+            std::cout << "Bullets: " << m_PlayerBullets.size() << std::endl;
+        }
+    }
+
+    // Player
     m_Player->update(ms);
 }
 
 void PlayState::draw()
 {
     m_Player->draw(m_Graphics);
+
+    for(Bullet& b: m_PlayerBullets)
+        b.draw(m_Graphics);
 }

@@ -2,7 +2,7 @@
 #define GAMESTATE_H
 
 #include "game.h"
-#include "graphics.h"
+#include "graphics/graphics.h"
 
 class GameState
 {
@@ -17,7 +17,7 @@ public:
     virtual void update(Game* game, int ms) = 0;
     virtual void draw() = 0;
 
-    void ChangeState(Game* game, GameState* state);
+    void ChangeState(Game* game, GameState* state) { game->changeState(state); }
 
 protected:
     GameState() {}

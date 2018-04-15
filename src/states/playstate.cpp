@@ -1,5 +1,5 @@
-#include "playstate.h"
-#include "pausestate.h"
+#include "states/playstate.h"
+#include "states/pausestate.h"
 
 #include <iostream>
 

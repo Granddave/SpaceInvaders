@@ -2,7 +2,7 @@
 #define PLAYER_H
 
 #include "entity.h"
-#include "input.h"
+#include "utils/input.h"
 #include "bullet.h"
 #include "gmath/Vector2.hpp"
 

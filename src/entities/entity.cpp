@@ -1,4 +1,4 @@
-#include "entity.h"
+#include "entities/entity.h"
 
 Entity::Entity(Graphics *graphics, const std::string &filePath,
                int srcX, int srcY, int width, int height,

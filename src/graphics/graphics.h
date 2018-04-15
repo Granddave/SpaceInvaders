@@ -1,7 +1,7 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "sprite.h"
+#include "graphics/sprite.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_surface.h>

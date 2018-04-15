@@ -2,10 +2,10 @@
 #define PLAYSTATE_H
 
 #include <SDL2/SDL.h>
-#include "gamestate.h"
-#include "input.h"
-#include "player.h"
-#include "bullet.h"
+#include "states/gamestate.h"
+#include "utils/input.h"
+#include "entities/player.h"
+#include "entities/bullet.h"
 
 class PlayState : public GameState
 {

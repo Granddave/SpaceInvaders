@@ -1,9 +1,9 @@
 #include "game.h"
-#include "input.h"
-#include "timer.h"
-#include "globals.h"
-#include "gamestate.h"
-#include "menustate.h"
+#include "utils/input.h"
+#include "utils/timer.h"
+#include "utils/globals.h"
+#include "states/gamestate.h"
+#include "states/menustate.h"
 
 #include <iostream>
 #include <algorithm>

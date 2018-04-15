@@ -1,9 +1,9 @@
 #ifndef PAUSESTATE_H
 #define PAUSESTATE_H
 
-#include "gamestate.h"
-#include "input.h"
-#include "button.h"
+#include "states/gamestate.h"
+#include "utils/input.h"
+#include "graphics/button.h"
 
 #include <SDL2/SDL.h>
 

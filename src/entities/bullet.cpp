@@ -1,5 +1,5 @@
 #include "bullet.h"
-#include "utils.h"
+#include "utils/utils.h"
 
 #include <iostream>
 #include <math.h>
@@ -7,7 +7,7 @@
 const float c_BulletScale  = 2.0f;
 
 Bullet::Bullet(Graphics *graphics, float posX, float posY, int damage, Vector2 velocity)
-    : GameObject(graphics, "resources/spaceinvaders.png",
+    : GameObject(graphics, "res/spaceinvaders.png",
                  31, 21, 1, 4, posX, posY),
       m_Damage(damage),
       m_HasHit(false),

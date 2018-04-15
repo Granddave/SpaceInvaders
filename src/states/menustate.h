@@ -2,9 +2,9 @@
 #define MENUSTATE_H
 
 #include "gamestate.h"
-#include "graphics.h"
-#include "input.h"
-#include "button.h"
+#include "graphics/graphics.h"
+#include "utils/input.h"
+#include "graphics/button.h"
 
 #include <SDL2/SDL.h>
 #include <vector>

@@ -1,6 +1,6 @@
-#include "sprite.h"
-#include "graphics.h"
-#include "globals.h"
+#include "graphics/sprite.h"
+#include "graphics/graphics.h"
+#include "utils/globals.h"
 
 #include <string>
 #include <iostream>

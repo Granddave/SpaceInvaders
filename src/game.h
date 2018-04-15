@@ -4,9 +4,9 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
-#include "graphics.h"
-#include "button.h"
-#include "player.h"
+#include "graphics/graphics.h"
+#include "graphics/button.h"
+#include "entities/player.h"
 
 class GameState;
 

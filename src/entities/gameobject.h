@@ -1,9 +1,9 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include "globals.h"
-#include "graphics.h"
-#include "sprite.h"
+#include "utils/globals.h"
+#include "graphics/graphics.h"
+#include "graphics/sprite.h"
 #include "gmath/Vector2.hpp"
 
 #include <SDL2/SDL.h>

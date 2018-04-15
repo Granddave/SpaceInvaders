@@ -1,7 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "graphics.h"
+#include "graphics/graphics.h"
 
 #include <SDL2/SDL.h>
 #include <string.h>

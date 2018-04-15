@@ -15,7 +15,7 @@ const float c_PlayerShootDamage = 10.0f;
 
 Player::Player(Graphics *graphics,
                float posX, float posY)
-    : Entity(graphics, "resources/spaceinvaders.png", 51, 3, 11, 8,
+    : Entity(graphics, "res/spaceinvaders.png", 51, 3, 11, 8,
              posX, posY, Vector2::Zero()),
       m_ShootCooldown(0.0f),
       m_ShootVec({0, 0}),
@@ -30,7 +30,7 @@ Player::Player(Graphics *graphics,
     m_ShootPos = {(m_Sprite.getRect().w* Graphics::s_Scale * c_PlayerScale) / 2, 0 };
 
     m_Graphics = graphics;
-    m_ShootSound = Mix_LoadWAV("resources/shoot.wav");
+    m_ShootSound = Mix_LoadWAV("res/shoot.wav");
 }
 
 Player::~Player()

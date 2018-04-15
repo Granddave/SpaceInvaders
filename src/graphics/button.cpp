@@ -1,6 +1,6 @@
 #include "button.h"
-#include "globals.h"
-#include "utils.h"
+#include "utils/globals.h"
+#include "utils/utils.h"
 #include "gmath/Vector2.hpp"
 
 #include <iostream>

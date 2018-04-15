@@ -1,7 +1,7 @@
 #ifndef BULLET_H
 #define BULLET_H
 
-#include "gameobject.h"
+#include "entities/gameobject.h"
 #include "gmath/Vector2.hpp"
 
 class Bullet : public GameObject

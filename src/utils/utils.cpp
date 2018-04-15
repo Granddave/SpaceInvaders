@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "utils/utils.h"
 
 bool pointInsideRect(const Vector2& p, const SDL_Rect &r)
 {

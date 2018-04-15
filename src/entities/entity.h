@@ -1,8 +1,8 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "gameobject.h"
-#include "globals.h"
+#include "entities/gameobject.h"
+#include "utils/globals.h"
 #include "gmath/Vector2.hpp"
 
 class Entity : public GameObject

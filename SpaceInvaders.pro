@@ -31,7 +31,8 @@ SOURCES += main.cpp \
     playstate.cpp \
     pausestate.cpp \
     button.cpp \
-    bullet.cpp
+    bullet.cpp \
+    utils.cpp
 
 HEADERS += \
     game.h \
@@ -48,4 +49,9 @@ HEADERS += \
     playstate.h \
     pausestate.h \
     button.h \
-    bullet.h
+    bullet.h \
+    gmath/Matrix3x3.hpp \
+    gmath/Quaternion.hpp \
+    gmath/Vector2.hpp \
+    gmath/Vector3.hpp \
+    utils.h

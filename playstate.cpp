@@ -82,8 +82,8 @@ void PlayState::update(Game *game, int ms)
         b.update(ms);
     if (m_Player->isShooting())
     {
-        Vec2f pos = m_Player->shootingPos();
-        m_PlayerBullets.emplace_back(m_Graphics, pos.x, pos.y, m_Player->damage(),
+        Vector2 pos = m_Player->shootingPos();
+        m_PlayerBullets.emplace_back(m_Graphics, pos.X, pos.Y, m_Player->damage(),
                                      m_Player->shootingVec());
     }
     for(size_t i = 0; i < m_PlayerBullets.size(); i++)

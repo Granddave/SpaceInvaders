@@ -4,6 +4,7 @@
 #include "globals.h"
 #include "graphics.h"
 #include "sprite.h"
+#include "gmath/Vector2.hpp"
 
 #include <SDL2/SDL.h>
 #include <memory>
@@ -16,9 +17,9 @@ public:
                        float posX, float posY);
     ~GameObject();
 
-    Vec2 getSize();
+    Vector2 getSize();
     void setPos(float x, float y);
-    Vec2f getPos();
+    Vector2 getPos();
 
     bool deleteLater() { return m_DeleteLater; }
 
@@ -26,7 +27,7 @@ public:
     virtual void draw(Graphics* graphics);
 
 protected:
-    Vec2f m_Pos;
+    Vector2 m_Pos;
     Sprite m_Sprite;
     bool m_DeleteLater;
 };

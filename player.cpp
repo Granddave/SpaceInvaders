@@ -16,7 +16,7 @@ const float c_PlayerShootDamage = 10.0f;
 Player::Player(Graphics *graphics,
                float posX, float posY)
     : Entity(graphics, "resources/spaceinvaders.png", 51, 3, 11, 8,
-             posX, posY, Vec2f::zero()),
+             posX, posY, Vector2::Zero()),
       m_ShootCooldown(0.0f),
       m_ShootVec({0, 0}),
       m_isShooting(false),
@@ -24,7 +24,7 @@ Player::Player(Graphics *graphics,
       m_DamageMultiplier(1)
 {
     setPos(Graphics::s_ScreenWidth / 2 -
-               (getSize().x * c_PlayerScale * Graphics::s_Scale) / 2,
+               (getSize().X * c_PlayerScale * Graphics::s_Scale) / 2,
            Graphics::s_ScreenHeight* 0.9f);
 
     m_ShootPos = {(m_Sprite.getRect().w* Graphics::s_Scale * c_PlayerScale) / 2, 0 };
@@ -42,18 +42,17 @@ void Player::update(int ms)
 {
     // ---- Movement ----
     // Update velocity
-    if(std::abs(m_Velocity.x) < c_PlayerBaseVel && std::abs(m_Acceleration.x) > 0)
-        m_Velocity.x += m_Acceleration.x * ms;
-    if(std::abs(m_Velocity.y) < c_PlayerBaseVel && std::abs(m_Acceleration.y) > 0)
-        m_Velocity.y += m_Acceleration.y * ms;
+    if(std::abs(m_Velocity.X) < c_PlayerBaseVel && std::abs(m_Acceleration.X) > 0)
+        m_Velocity.X += m_Acceleration.X * ms;
+    if(std::abs(m_Velocity.Y) < c_PlayerBaseVel && std::abs(m_Acceleration.Y) > 0)
+        m_Velocity.Y += m_Acceleration.Y * ms;
 
     // Update position
-    m_Pos.x += m_Velocity.x * ms * Graphics::s_Scale;
-    m_Pos.y += m_Velocity.y * ms * Graphics::s_Scale;
+    m_Pos += m_Velocity * ms * Graphics::s_Scale;
 
     // Add friction
-    m_Velocity.x = (std::abs(m_Velocity.x) > 0.001) ? (m_Velocity.x * 0.9f) : 0;
-    m_Velocity.y = (std::abs(m_Velocity.y) > 0.001) ? (m_Velocity.y * 0.9f) : 0;
+    m_Velocity.X = (std::abs(m_Velocity.X) > 0.001) ? (m_Velocity.X * 0.9f) : 0;
+    m_Velocity.Y = (std::abs(m_Velocity.Y) > 0.001) ? (m_Velocity.Y * 0.9f) : 0;
 
     checkBorderCollision();
 
@@ -65,7 +64,7 @@ void Player::update(int ms)
 void Player::draw(Graphics* graphics)
 {
     if(m_Alive)
-        m_Sprite.draw(graphics, m_Pos.x, m_Pos.y, c_PlayerScale);
+        m_Sprite.draw(graphics, m_Pos.X, m_Pos.Y, c_PlayerScale);
 }
 
 void Player::handleInput(Input &input)
@@ -83,25 +82,25 @@ void Player::handleInput(Input &input)
 
 void Player::checkBorderCollision()
 {
-    if(m_Pos.x <= 0)
+    if(m_Pos.X <= 0)
     {
-        m_Pos.x = 0;
-        m_Velocity.x = 0;
+        m_Pos.X = 0;
+        m_Velocity.X = 0;
     }
-    if(m_Pos.x + m_Sprite.getRect().w * c_PlayerScale >= Graphics::s_ScreenWidth)
+    if(m_Pos.X + m_Sprite.getRect().w * c_PlayerScale >= Graphics::s_ScreenWidth)
     {
-        m_Pos.x = Graphics::s_ScreenWidth - m_Sprite.getRect().w * c_PlayerScale;
-        m_Velocity.x = 0;
+        m_Pos.X = Graphics::s_ScreenWidth - m_Sprite.getRect().w * c_PlayerScale;
+        m_Velocity.Y = 0;
     }
-    if(m_Pos.y <= 0)
+    if(m_Pos.Y <= 0)
     {
-        m_Pos.y = 0;
-        m_Velocity.y = 0;
+        m_Pos.Y = 0;
+        m_Velocity.Y = 0;
     }
-    if(m_Pos.y + m_Sprite.getRect().h * c_PlayerScale >= Graphics::s_ScreenHeight)
+    if(m_Pos.Y + m_Sprite.getRect().h * c_PlayerScale >= Graphics::s_ScreenHeight)
     {
-        m_Pos.y = Graphics::s_ScreenHeight - m_Sprite.getRect().h * c_PlayerScale;
-        m_Velocity.y = 0;
+        m_Pos.Y = Graphics::s_ScreenHeight - m_Sprite.getRect().h * c_PlayerScale;
+        m_Velocity.Y = 0;
     }
 }
 
@@ -109,23 +108,23 @@ void Player::calcMovement(Input &input)
 {
     // Left - Right
     if(input.isKeyHeld(SDL_SCANCODE_A) && input.isKeyHeld(SDL_SCANCODE_D))
-        m_Acceleration.x = 0;
+        m_Acceleration.X = 0;
     else if(input.isKeyHeld(SDL_SCANCODE_A))
-        m_Acceleration.x = -c_PlayerAcceleration;
+        m_Acceleration.X = -c_PlayerAcceleration;
     else if(input.isKeyHeld(SDL_SCANCODE_D))
-        m_Acceleration.x = c_PlayerAcceleration;
+        m_Acceleration.X = c_PlayerAcceleration;
     else if(!input.isKeyHeld(SDL_SCANCODE_A) && !input.isKeyHeld(SDL_SCANCODE_D))
-        m_Acceleration.x = 0;
+        m_Acceleration.X = 0;
 
     // Up - Down
     if(input.isKeyHeld(SDL_SCANCODE_W) && input.isKeyHeld(SDL_SCANCODE_S))
-        m_Acceleration.y = 0;
+        m_Acceleration.Y = 0;
     else if(input.isKeyHeld(SDL_SCANCODE_W))
-        m_Acceleration.y = -c_PlayerAcceleration;
+        m_Acceleration.Y = -c_PlayerAcceleration;
     else if(input.isKeyHeld(SDL_SCANCODE_S))
-        m_Acceleration.y = c_PlayerAcceleration;
+        m_Acceleration.Y = c_PlayerAcceleration;
     else if(!input.isKeyHeld(SDL_SCANCODE_W) && !input.isKeyHeld(SDL_SCANCODE_S))
-        m_Acceleration.y = 0;
+        m_Acceleration.Y = 0;
 }
 
 bool Player::checkIfShoot(Input &input)
@@ -136,13 +135,12 @@ bool Player::checkIfShoot(Input &input)
 
 void Player::calcShootingVec()
 {
-    Vec2 mousePos;
-    SDL_GetMouseState(&mousePos.x, &mousePos.y);
-    m_ShootVec.x = mousePos.x - (m_Pos.x + m_ShootPos.x);
-    m_ShootVec.y = mousePos.y - (m_Pos.y + m_ShootPos.y);
-    m_ShootVec.normalize();
-    m_ShootVec.x = m_ShootVec.x * c_PlayerShootVelocity; // Todo: Refactor
-    m_ShootVec.y = m_ShootVec.y * c_PlayerShootVelocity;
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+    Vector2 mousePos(x, y);
+    m_ShootVec = mousePos - (m_Pos + m_ShootPos);
+
+    m_ShootVec = Vector2::Normalized(m_ShootVec) * c_PlayerShootVelocity;
 }
 
 void Player::playShootingSound()

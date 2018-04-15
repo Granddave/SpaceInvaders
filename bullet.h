@@ -2,18 +2,19 @@
 #define BULLET_H
 
 #include "gameobject.h"
+#include "gmath/Vector2.hpp"
 
 class Bullet : public GameObject
 {
 public:
-    Bullet(Graphics *graphics, float posX, float posY, int damage, Vec2f speed);
+    Bullet(Graphics *graphics, float posX, float posY, int damage, Vector2 speed);
 
     void update(int ms);
     void draw(Graphics *graphics);
 private:
     int m_Damage;
     bool m_HasHit;
-    Vec2f m_Velocity;
+    Vector2 m_Velocity;
 };
 
 #endif // BULLET_H

@@ -1,5 +1,7 @@
 #include "button.h"
 #include "globals.h"
+#include "utils.h"
+#include "gmath/Vector2.hpp"
 
 #include <iostream>
 
@@ -28,10 +30,11 @@ void Button::handleEvents(SDL_Event& e)
        e.type == SDL_MOUSEBUTTONDOWN ||
        e.type == SDL_MOUSEBUTTONUP)
     {
-        Vec2 p;
-        SDL_GetMouseState(&p.x, &p.y);
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+        Vector2 p(x, y);
 
-        if(p.isInside(m_Rect) == false)
+        if(pointInsideRect(p, m_Rect) == false)
         {
             m_State = BUTTON_MOUSE_OUT;
         }

@@ -15,23 +15,23 @@ GameObject::~GameObject()
 
 }
 
-Vec2 GameObject::getSize()
+Vector2 GameObject::getSize()
 {
-    return Vec2(m_Sprite.getRect().w, m_Sprite.getRect().h);
+    return Vector2(m_Sprite.getRect().w, m_Sprite.getRect().h);
 }
 
 void GameObject::setPos(float x, float y)
 {
-    m_Pos.x = x;
-    m_Pos.y = y;
+    m_Pos.X = x;
+    m_Pos.Y = y;
 }
 
-Vec2f GameObject::getPos()
+Vector2 GameObject::getPos()
 {
     return m_Pos;
 }
 
 void GameObject::draw(Graphics *graphics)
 {
-    m_Sprite.draw(graphics, m_Pos.x, m_Pos.y);
+    m_Sprite.draw(graphics, m_Pos.X, m_Pos.Y);
 }

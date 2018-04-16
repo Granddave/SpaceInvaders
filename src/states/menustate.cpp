@@ -1,5 +1,6 @@
 #include "states/menustate.h"
 #include "states/playstate.h"
+#include "utils/utils.h"
 
 #include <iostream>
 
@@ -58,11 +59,11 @@ void MenuState::handleEvents(Game *game)
     for(auto const& b: m_Buttons)
         b->handleEvents(event);
 
-    if(m_Buttons[0]->state() == Button::BUTTON_MOUSE_DOWN
+    if(m_Buttons[0]->state() == Button::BUTTON_MOUSE_UP
             || m_Input.wasKeyPressed(SDL_SCANCODE_RETURN)
             || m_Input.wasKeyPressed(SDL_SCANCODE_SPACE))
         game->changeState(PlayState::instance());
-    if(m_Buttons[1]->state() == Button::BUTTON_MOUSE_DOWN)
+    if(m_Buttons[1]->state() == Button::BUTTON_MOUSE_UP)
         game->quit();
 
     if(m_Input.wasKeyPressed(SDL_SCANCODE_ESCAPE))
@@ -71,8 +72,8 @@ void MenuState::handleEvents(Game *game)
 
 void MenuState::update(Game *game, int ms)
 {
-    (void) game;
-    (void) ms;
+    NOT_USED(game);
+    NOT_USED(ms);
 }
 
 void MenuState::draw()

@@ -119,6 +119,7 @@ void Game::draw()
 {
     m_Graphics.clear();
     m_States.back()->draw();
+    // Place FPS rendering here?
     m_Graphics.flip();
 }
 

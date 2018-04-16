@@ -145,6 +145,7 @@ void Player::calcShootingVec()
 
 void Player::playShootingSound()
 {
+    // Todo: Wrap in class:
     if(globals::sounds)
     {
         if(Mix_PlayChannel(-1, m_ShootSound, 0) == -1)

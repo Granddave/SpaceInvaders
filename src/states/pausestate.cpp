@@ -1,5 +1,6 @@
 #include "states/pausestate.h"
 #include "states/playstate.h"
+#include "utils/utils.h"
 
 #include <iostream>
 
@@ -62,8 +63,8 @@ void PauseState::handleEvents(Game *game)
 
 void PauseState::update(Game *game, int ms)
 {
-    (void) game;
-    (void) ms;
+    NOT_USED(game);
+    NOT_USED(ms);
 
 }
 

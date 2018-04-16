@@ -121,6 +121,7 @@ bool Graphics::init()
         {
             SDL_SetRenderDrawColor(m_Renderer, 0x00, 0x00, 0x00, 0xFF);
 
+            // Todo: Move this block to texturemanager
             // Initialize PNG loading
             int imgFlags = IMG_INIT_PNG;
             if(!(IMG_Init(imgFlags) & imgFlags))
@@ -130,6 +131,7 @@ bool Graphics::init()
                 success = false;
             }
 
+            // Todo: Move to fontmanager
             if(TTF_Init() == -1)
             {
                 std::cout << "SDL_ttf could not initialized!\n"

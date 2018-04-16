@@ -1,5 +1,6 @@
 #include "states/playstate.h"
 #include "states/pausestate.h"
+#include "utils/utils.h"
 
 #include <iostream>
 
@@ -75,7 +76,7 @@ void PlayState::handleEvents(Game *game)
 
 void PlayState::update(Game *game, int ms)
 {
-    (void) game;
+    NOT_USED(game);
 
     // Bullets
     for(Bullet& b: m_PlayerBullets)

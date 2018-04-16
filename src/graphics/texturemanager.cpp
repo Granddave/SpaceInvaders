@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-TextureManager* TextureManager::instance = 0;
+TextureManager* TextureManager::m_Instance = 0;
 
 TextureManager::TextureManager()
 {
@@ -22,7 +22,6 @@ TextureManager::~TextureManager()
 bool TextureManager::loadTexture(SDL_Renderer *renderer, const std::string &filePath)
 {
     bool success = true;
-    // Todo: https://github.com/gonccalo/SDL-Game/blob/master/SDL-Game/TextureManager.cpp
     if(m_SpriteSheets.count(filePath) == 0)
     {
         SDL_Surface* surface= IMG_Load(filePath.c_str());

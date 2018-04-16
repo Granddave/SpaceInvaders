@@ -9,10 +9,10 @@
 class TextureManager
 {
 public:
-    static TextureManager* I()
+    static TextureManager* instance()
     {
-        if (instance == nullptr) { instance = new TextureManager(); }
-        return instance;
+        if (m_Instance == nullptr) { m_Instance = new TextureManager(); }
+        return m_Instance;
     }
     ~TextureManager();
 
@@ -21,7 +21,7 @@ public:
 
 private:
     TextureManager();
-    static TextureManager* instance;
+    static TextureManager* m_Instance;
 
     std::map<std::string, SDL_Texture*> m_SpriteSheets;
 };

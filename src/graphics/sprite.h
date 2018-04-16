@@ -12,6 +12,7 @@ class Sprite
 public:
     Sprite(Graphics* graphics, const std::string& filePath,
            int srcX, int srcY, int width, int height);
+    Sprite();
 
     void draw(Graphics* graphics, const int x, const int y, const float scale = 1.0f);
     void draw(Graphics* graphics, int x, int y, const double angle,

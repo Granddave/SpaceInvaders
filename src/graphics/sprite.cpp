@@ -10,14 +10,19 @@ Sprite::Sprite(Graphics* graphics, const std::string& filePath,
     : m_FilePath(filePath),
       m_SrcRect({srcX, srcY, width, height})
 {
-    TextureManager::I()->loadTexture(graphics->getRenderer(),
+    TextureManager::instance()->loadTexture(graphics->getRenderer(),
                                             filePath);
+}
+
+Sprite::Sprite()
+{
+
 }
 
 void Sprite::draw(Graphics* graphics, const int x, const int y, const float scale)
 {
     SDL_Rect destRect = getDestRect(x, y, scale);
-    graphics->blitSurface(TextureManager::I()->getTexture(m_FilePath),
+    graphics->blitSurface(TextureManager::instance()->getTexture(m_FilePath),
                           &m_SrcRect, &destRect);
 }
 
@@ -26,7 +31,7 @@ void Sprite::draw(Graphics *graphics, int x, int y, const double angle,
                   float scale)
 {
     SDL_Rect destRect = getDestRect(x, y, scale);
-    graphics->blitSurface(TextureManager::I()->getTexture(m_FilePath),
+    graphics->blitSurface(TextureManager::instance()->getTexture(m_FilePath),
                           &m_SrcRect, &destRect,
                           angle, center, flip);
 }

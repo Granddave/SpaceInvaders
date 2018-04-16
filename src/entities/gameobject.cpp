@@ -5,6 +5,14 @@ GameObject::GameObject(Graphics* graphics, const std::string& filePath,
                        float posX, float posY)
     : m_Pos({posX, posY}),
       m_Sprite(graphics, filePath, srcX, srcY, width, height),
+      m_Scale(1.0f),
+      m_DeleteLater(false)
+{
+
+}
+
+GameObject::GameObject()
+    : m_Scale(1.0f),
       m_DeleteLater(false)
 {
 
@@ -17,7 +25,8 @@ GameObject::~GameObject()
 
 Vector2 GameObject::getSize()
 {
-    return Vector2(m_Sprite.getRect().w, m_Sprite.getRect().h);
+    return Vector2(m_Sprite.getRect().w, m_Sprite.getRect().h)
+            * m_Scale;
 }
 
 void GameObject::setPos(float x, float y)

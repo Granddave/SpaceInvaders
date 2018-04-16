@@ -15,6 +15,7 @@ public:
     GameObject(Graphics *graphics, const std::string& filePath,
                        int srcX, int srcY, int width, int height,
                        float posX, float posY);
+    GameObject();
     ~GameObject();
 
     Vector2 getSize();
@@ -29,6 +30,7 @@ public:
 protected:
     Vector2 m_Pos;
     Sprite m_Sprite;
+    float m_Scale;
     bool m_DeleteLater;
 };
 

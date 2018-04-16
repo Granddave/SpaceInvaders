@@ -6,6 +6,7 @@
 #include "utils/input.h"
 #include "entities/player.h"
 #include "entities/bullet.h"
+#include "entities/enemy.h"
 
 class PlayState : public GameState
 {
@@ -33,6 +34,7 @@ private:
     Input m_Input;
 
     Player* m_Player;
+    std::vector<Enemy> m_Enemies;
     std::vector<Bullet> m_PlayerBullets;
 };
 

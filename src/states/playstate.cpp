@@ -68,6 +68,8 @@ void PlayState::handleEvents(Game *game)
 
     if(m_Input.wasKeyPressed(SDL_SCANCODE_P))
         game->pushState(PauseState::instance());
+    else if(m_Input.wasKeyPressed(SDL_SCANCODE_E))
+        m_Enemies.push_back(Enemy(m_Graphics, 800, 500));
     else if(m_Input.wasKeyPressed(SDL_SCANCODE_ESCAPE))
         game->quit();
 
@@ -78,7 +80,9 @@ void PlayState::update(Game *game, int ms)
 {
     NOT_USED(game);
 
-    // Bullets
+    for(Enemy& e: m_Enemies)
+        e.update(ms);
+
     for(Bullet& b: m_PlayerBullets)
         b.update(ms);
     if (m_Player->isShooting())
@@ -106,4 +110,6 @@ void PlayState::draw()
 
     for(Bullet& b: m_PlayerBullets)
         b.draw(m_Graphics);
+    for(Enemy& e: m_Enemies)
+        e.draw(m_Graphics);
 }

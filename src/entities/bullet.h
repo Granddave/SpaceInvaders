@@ -10,7 +10,7 @@ public:
     Bullet(Graphics *graphics, float posX, float posY, int damage, Vector2 speed);
 
     void update(int ms);
-    void draw(Graphics *graphics);
+    void draw(Graphics *graphics) override;
 private:
     int m_Damage;
     bool m_HasHit;

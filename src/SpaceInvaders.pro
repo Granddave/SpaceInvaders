@@ -22,6 +22,7 @@ HEADERS += \
     entities/entity.h \
     entities/gameobject.h \
     entities/player.h \
+    entities/enemy.h \
     gmath/Matrix3x3.hpp \
     gmath/Quaternion.hpp \
     gmath/Vector2.hpp \
@@ -45,6 +46,7 @@ SOURCES += \
     entities/entity.cpp \
     entities/gameobject.cpp \
     entities/player.cpp \
+    entities/enemy.cpp \
     graphics/button.cpp \
     graphics/graphics.cpp \
     graphics/sprite.cpp \

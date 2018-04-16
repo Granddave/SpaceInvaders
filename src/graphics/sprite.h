@@ -22,8 +22,8 @@ public:
 private:
     SDL_Rect getDestRect(int x, int y, float scale);
 
+    std::string m_FilePath;
     SDL_Rect m_SrcRect;
-    SDL_Texture* m_SpriteSheet;
 };
 
 #endif // SPRITE_H

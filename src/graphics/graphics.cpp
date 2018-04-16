@@ -35,13 +35,6 @@ Graphics::Graphics()
 
 Graphics::~Graphics()
 {
-    // Todo: delete SpriteSheets
-    for (auto it = m_SpriteSheets.begin(); it != m_SpriteSheets.end(); ++it)
-    {
-        SDL_FreeSurface(it->second);
-    }
-    m_SpriteSheets.clear();
-
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
     m_Renderer = NULL;
@@ -141,27 +134,6 @@ bool Graphics::init()
         }
     }
     return success;
-}
-
-SDL_Texture* Graphics::loadTexture(const std::string &filePath)
-{
-    // Todo: https://github.com/gonccalo/SDL-Game/blob/master/SDL-Game/TextureManager.cpp
-    if(m_SpriteSheets.count(filePath) == 0)
-    {
-        m_SpriteSheets[filePath] = IMG_Load(filePath.c_str());
-
-        if (m_SpriteSheets[filePath] == NULL)
-        {
-            std::cout << "Could not load texture: " << filePath << "\n"
-                      << "IMG_Error: " << IMG_GetError() << std::endl;
-        }
-
-        SDL_SetColorKey(m_SpriteSheets[filePath], SDL_TRUE,
-                        SDL_MapRGB(m_SpriteSheets[filePath]->format,
-                                   0, 0x80, 0xFF));
-    }
-
-    return SDL_CreateTextureFromSurface(m_Renderer, m_SpriteSheets[filePath]);
 }
 
 void Graphics::blitSurface(SDL_Texture* texture,

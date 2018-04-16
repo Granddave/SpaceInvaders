@@ -1,27 +1,24 @@
 #include "graphics/sprite.h"
 #include "graphics/graphics.h"
+#include "graphics/texturemanager.h"
 #include "utils/globals.h"
-
 #include <string>
 #include <iostream>
 
 Sprite::Sprite(Graphics* graphics, const std::string& filePath,
                int srcX, int srcY, int width, int height)
-    : m_SrcRect({srcX, srcY, width, height})
+    : m_FilePath(filePath),
+      m_SrcRect({srcX, srcY, width, height})
 {
-    m_SpriteSheet = graphics->loadTexture(filePath);
-    if(m_SpriteSheet == NULL)
-    {
-        std::cout << "Unable to load image " << filePath
-                  << "SDL_Error: " << SDL_GetError()
-                  << std::endl;
-    }
+    TextureManager::I()->loadTexture(graphics->getRenderer(),
+                                            filePath);
 }
 
 void Sprite::draw(Graphics* graphics, const int x, const int y, const float scale)
 {
     SDL_Rect destRect = getDestRect(x, y, scale);
-    graphics->blitSurface(m_SpriteSheet, &m_SrcRect, &destRect);
+    graphics->blitSurface(TextureManager::I()->getTexture(m_FilePath),
+                          &m_SrcRect, &destRect);
 }
 
 void Sprite::draw(Graphics *graphics, int x, int y, const double angle,
@@ -29,7 +26,8 @@ void Sprite::draw(Graphics *graphics, int x, int y, const double angle,
                   float scale)
 {
     SDL_Rect destRect = getDestRect(x, y, scale);
-    graphics->blitSurface(m_SpriteSheet, &m_SrcRect, &destRect,
+    graphics->blitSurface(TextureManager::I()->getTexture(m_FilePath),
+                          &m_SrcRect, &destRect,
                           angle, center, flip);
 }
 

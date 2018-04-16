@@ -29,6 +29,7 @@ HEADERS += \
     graphics/button.h \
     graphics/graphics.h \
     graphics/sprite.h \
+    graphics/texturemanager.h \
     states/gamestate.h \
     states/menustate.h \
     states/pausestate.h \
@@ -47,6 +48,7 @@ SOURCES += \
     graphics/button.cpp \
     graphics/graphics.cpp \
     graphics/sprite.cpp \
+    graphics/texturemanager.cpp \
     states/menustate.cpp \
     states/pausestate.cpp \
     states/playstate.cpp \

@@ -20,6 +20,7 @@ public:
     bool wasKeyPressed(SDL_Scancode key);
     bool wasKeyReleased(SDL_Scancode key);
     bool isKeyHeld(SDL_Scancode key);
+    bool wasKeyPressedOrHeld(SDL_Scancode key);
 
     bool wasButtonPressed(int button);
     bool wasButtonReleased(int button);

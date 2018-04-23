@@ -52,6 +52,11 @@ bool Input::isKeyHeld(SDL_Scancode key)
     return m_HeldKeys[key];
 }
 
+bool Input::wasKeyPressedOrHeld(SDL_Scancode key)
+{
+    return m_PressedKeys[key] || m_HeldKeys[key];
+}
+
 bool Input::wasButtonPressed(int button)
 {
     return m_PressedButtons[button];

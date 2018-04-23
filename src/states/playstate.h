@@ -2,6 +2,8 @@
 #define PLAYSTATE_H
 
 #include <SDL2/SDL.h>
+#include <Box2D/Box2D.h>
+
 #include "states/gamestate.h"
 #include "utils/input.h"
 #include "entities/player.h"
@@ -32,6 +34,10 @@ protected:
 private:
     static PlayState m_PlayState;
     Input m_Input;
+
+    b2World* m_World;
+    b2Body* m_GroundBody;
+    b2Body* m_Body;
 
     Player* m_Player;
     std::vector<Enemy> m_Enemies;

@@ -5,7 +5,7 @@ CONFIG -= app_bundle qt
 
 TARGET = SpaceInvaders
 
-linux:LIBS += -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+linux:LIBS += -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lBox2D
 win32:LIBS += -LD:/Dev/SDL2/lib/x86 -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 win32:INCLUDEPATH += D:/Dev/SDL2/include
 

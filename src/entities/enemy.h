@@ -1,9 +1,9 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "entities/entity.h"
+#include "entities/gameobject.h"
 
-class Enemy : public Entity
+class Enemy : public GameObject
 {
 public:
     Enemy(Graphics *graphics, float posX, float posY);

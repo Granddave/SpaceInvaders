@@ -7,6 +7,7 @@
 #include "gmath/Vector2.hpp"
 
 #include <SDL2/SDL.h>
+#include <Box2D/Box2D.h>
 #include <memory>
 
 class GameObject
@@ -28,9 +29,13 @@ public:
     virtual void draw(Graphics* graphics);
 
 protected:
-    Vector2 m_Pos;
+    b2Body* m_Body;
+    Vector2 m_Pos;          // Todo: Refactor away
+    Vector2 m_Velocity;     //
+    Vector2 m_Acceleration; //
     Sprite m_Sprite;
-    float m_Scale;
+    float m_Scale;          // Todo: Refactor
+    bool m_Alive;
     bool m_DeleteLater;
 };
 

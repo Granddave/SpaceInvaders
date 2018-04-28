@@ -15,8 +15,8 @@ const float c_PlayerShootDamage = 10.0f;
 
 Player::Player(Graphics *graphics,
                float posX, float posY)
-    : Entity(graphics, "res/spaceinvaders.png", 51, 3, 11, 8,
-             posX, posY, Vector2::Zero()),
+    : GameObject(graphics, "res/spaceinvaders.png", 51, 3, 11, 8,
+             posX, posY),
       m_ShootCooldown(0.0f),
       m_ShootVec({0, 0}),
       m_isShooting(false),

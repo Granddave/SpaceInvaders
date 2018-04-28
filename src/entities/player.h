@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "entity.h"
+#include "gameobject.h"
 #include "utils/input.h"
 #include "bullet.h"
 #include "gmath/Vector2.hpp"
@@ -9,7 +9,7 @@
 #include <vector>
 #include <SDL2/SDL_mixer.h>
 
-class Player : public Entity
+class Player : public GameObject
 {
 public:
     Player(Graphics* graphics, float posX = 0, float posY = 0);
@@ -17,13 +17,12 @@ public:
 
     void update(int ms) override;
     void draw(Graphics *graphics) override;
-
     void handleInput(Input& input);
 
     Vector2 shootingPos() const { return m_Pos + m_ShootPos; }
     Vector2 shootingVec() const { return m_ShootVec; }
-    float damage() const { return m_DamageBase * m_DamageMultiplier; }
-    bool isShooting() const { return m_isShooting; }
+    float damage()        const { return m_DamageBase * m_DamageMultiplier; }
+    bool isShooting()     const { return m_isShooting; }
 
 private:
     void checkBorderCollision();

@@ -4,15 +4,21 @@ GameObject::GameObject(Graphics* graphics, const std::string& filePath,
                        int srcX, int srcY, int width, int height,
                        float posX, float posY)
     : m_Pos({posX, posY}),
+      m_Velocity(Vector2::Zero()),
+      m_Acceleration(Vector2::Zero()),
       m_Sprite(graphics, filePath, srcX, srcY, width, height),
       m_Scale(1.0f),
+      m_Alive(true),
       m_DeleteLater(false)
 {
 
 }
 
 GameObject::GameObject()
-    : m_Scale(1.0f),
+    : m_Velocity(Vector2::Zero()),
+      m_Acceleration(Vector2::Zero()),
+      m_Scale(1.0f),
+      m_Alive(true),
       m_DeleteLater(false)
 {
 

@@ -2,7 +2,7 @@
 #include <random>
 
 Enemy::Enemy(Graphics *graphics, float posX, float posY)
-    : Entity(graphics,"res/spaceinvaders.png",21,3,12,8, posX, posY)
+    : GameObject(graphics,"res/spaceinvaders.png",21,3,12,8, posX, posY)
 {
     m_Scale = 1.5f;
 

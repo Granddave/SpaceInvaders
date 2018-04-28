@@ -19,10 +19,9 @@ linux{
 
 HEADERS += \
     entities/bullet.h \
-    entities/entity.h \
     entities/gameobject.h \
-    entities/player.h \
     entities/enemy.h \
+    entities/player.h \
     gmath/Matrix3x3.hpp \
     gmath/Quaternion.hpp \
     gmath/Vector2.hpp \
@@ -43,7 +42,6 @@ HEADERS += \
 
 SOURCES += \
     entities/bullet.cpp \
-    entities/entity.cpp \
     entities/gameobject.cpp \
     entities/player.cpp \
     entities/enemy.cpp \
@@ -59,6 +57,3 @@ SOURCES += \
     utils/utils.cpp \
     game.cpp \
     main.cpp
-
-
-

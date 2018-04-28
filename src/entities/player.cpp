@@ -69,7 +69,7 @@ void Player::draw(Graphics* graphics)
 
 void Player::handleInput(Input &input)
 {
-    calcMovement(input);
+    //calcMovement(input);
 
     if(checkIfShoot(input))
     {

@@ -36,8 +36,11 @@ private:
     Input m_Input;
 
     b2World* m_World;
+
+// Temp
     b2Body* m_GroundBody;
     b2Body* m_Body;
+// Temp
 
     Player* m_Player;
     std::vector<Enemy> m_Enemies;

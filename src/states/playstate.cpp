@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+#define PLAYER_SPEED 100
 PlayState PlayState::m_PlayState;
 
 void PlayState::init(Graphics *graphics)
@@ -13,14 +14,15 @@ void PlayState::init(Graphics *graphics)
     m_Player = new Player(m_Graphics);
     m_PlayerBullets.reserve(2);
 
+    // Box2D
     b2Vec2 gravity(0.0f, -10.0f);
     m_World = new b2World(gravity);
 
     b2BodyDef groundBodyDef;
-    groundBodyDef.position.Set(0.0f, 0.0f);
+    groundBodyDef.position.Set(8.0f, 0.0f);
     m_GroundBody = m_World->CreateBody(&groundBodyDef);
     b2PolygonShape groundBox;
-    groundBox.SetAsBox(9.0f, 0.5f);
+    groundBox.SetAsBox(8.0f, 0.5f);
     m_GroundBody->CreateFixture(&groundBox, 0.0f);
 
     b2BodyDef bodyDef;
@@ -29,14 +31,15 @@ void PlayState::init(Graphics *graphics)
     m_Body = m_World->CreateBody(&bodyDef);
 
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(1.0f, 1.0f);
+    dynamicBox.SetAsBox(0.5f, 0.5f);
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
 
-    fixtureDef.density = 1.0f;
+    fixtureDef.density = 3.0f;
     fixtureDef.friction = 0.3f;
     m_Body->CreateFixture(&fixtureDef);
+    //m_Body->SetLinearDamping(1.5f);
 }
 
 void PlayState::clean()
@@ -69,10 +72,7 @@ void PlayState::handleEvents(Game *game)
         break;
 
         case SDL_KEYDOWN:
-            if(event.key.repeat == 0)
-            {
-                m_Input.keyDownEvent(event);
-            }
+            m_Input.keyDownEvent(event);
         break;
 
         case SDL_KEYUP:
@@ -98,12 +98,17 @@ void PlayState::handleEvents(Game *game)
         m_Enemies.push_back(Enemy(m_Graphics, 800, 500));
     else if(m_Input.wasKeyPressed(SDL_SCANCODE_ESCAPE))
         game->quit();
-    if(m_Input.wasKeyPressedOrHeld(SDL_SCANCODE_W))
-        m_Body->ApplyForce(b2Vec2(0, 100), m_Body->GetWorldCenter(), true);
-    if(m_Input.wasKeyPressedOrHeld(SDL_SCANCODE_D))
-        m_Body->ApplyForce(b2Vec2(10, 0), m_Body->GetWorldCenter(), true);
-    else if(m_Input.wasKeyPressedOrHeld(SDL_SCANCODE_A))
-        m_Body->ApplyForce(b2Vec2(-10, 0), m_Body->GetWorldCenter(), true);
+
+    // Temp
+    if(m_Input.isKeyHeld(SDL_SCANCODE_W))
+        m_Body->ApplyForce(b2Vec2(0, PLAYER_SPEED), m_Body->GetWorldCenter(), true);
+    else if(m_Input.isKeyHeld(SDL_SCANCODE_S))
+        m_Body->ApplyForce(b2Vec2(0, -PLAYER_SPEED), m_Body->GetWorldCenter(), true);
+    if(m_Input.isKeyHeld(SDL_SCANCODE_D))
+        m_Body->ApplyForce(b2Vec2(PLAYER_SPEED, 0), m_Body->GetWorldCenter(), true);
+    else if(m_Input.isKeyHeld(SDL_SCANCODE_A))
+        m_Body->ApplyForce(b2Vec2(-PLAYER_SPEED, 0), m_Body->GetWorldCenter(), true);
+    // Temp
 
     m_Player->handleInput(m_Input);
 }
@@ -112,11 +117,14 @@ void PlayState::update(Game *game, int ms)
 {
     NOT_USED(game);
 
-    m_World->Step(1.0f/60.0f, 6, 2);
+    m_World->Step((float)(ms)/1000, 6, 2);
+
+    // Temp
     b2Vec2 pos = m_Body->GetPosition();
-    std::cout << pos.x << ", " << pos.y << std::endl;
+    //std::cout << pos.x << ", " << pos.y << std::endl;
     pos = worldToPixel(pos);
     m_Player->setPos(pos.x, pos.y);
+    // Temp
 
     for(Enemy& e: m_Enemies)
         e.update(ms);
@@ -126,9 +134,12 @@ void PlayState::update(Game *game, int ms)
     if (m_Player->isShooting())
     {
         Vector2 pos = m_Player->shootingPos();
-        m_PlayerBullets.emplace_back(m_Graphics, pos.X, pos.Y, m_Player->damage(),
-                                     m_Player->shootingVec());
+        m_PlayerBullets.push_back(Bullet(m_Graphics, pos.X, pos.Y,
+                                         m_Player->damage(),
+                                         m_Player->shootingVec()));
     }
+
+    // Clear deletable bullets
     for(size_t i = 0; i < m_PlayerBullets.size(); i++)
     {
         if (m_PlayerBullets.at(i).deleteLater())
@@ -138,18 +149,22 @@ void PlayState::update(Game *game, int ms)
         }
     }
 
-    // Player
     m_Player->update(ms);
 }
 
 void PlayState::draw()
 {
+    // Temp
     b2Vec2 pos = worldToPixel(m_Body->GetPosition());
-    SDL_Rect r({(int)pos.x, (int)pos.y,80,80});
+    SDL_Rect r({(int)pos.x, (int)pos.y,40,40});
     SDL_SetRenderDrawColor(m_Graphics->getRenderer(), 255,255,255,255);
     SDL_RenderDrawRect(m_Graphics->getRenderer(), &r);
+    //r = {m_GroundBody->x,m_GroundBody->y, m_GroundBody->};
+    //SDL_RenderDrawRect(m_Graphics->getRenderer(), &r);
     SDL_SetRenderDrawColor(m_Graphics->getRenderer(), 0,0,0,255);
     m_Player->draw(m_Graphics);
+    // Temp
+
 
     for(Bullet& b: m_PlayerBullets)
         b.draw(m_Graphics);

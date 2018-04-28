@@ -1,6 +1,5 @@
 #include "game.h"
 #include "utils/input.h"
-#include "utils/timer.h"
 #include "utils/globals.h"
 #include "states/gamestate.h"
 #include "states/menustate.h"
@@ -29,6 +28,7 @@ bool Game::init()
         return false;
     }
 
+    // Todo: Wrap in audio class
     if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
     {
         return false;
@@ -42,25 +42,31 @@ bool Game::init()
 
 void Game::exec()
 {
+    bool printFPS = true;
+    int lastFrameTime;
+
+    tickTimer.start();
+    updateTimer.start();
+
     changeState(MenuState::instance());
 
-    bool printFPS = false;
-    Timer secondTimer;
-    if (printFPS)
-        secondTimer.start();
-
-    Timer updateTimer;
-    updateTimer.start();
     while(running())
     {
         handleEvents();
 
-        if(printFPS && secondTimer.getTicks() > 1000)
+        if(tickTimer.getTicks() > 1000)
         {
-            std::cout << "Current FPS: " << 1000 / (updateTimer.getTicks() + 1)  << "\n";
-            secondTimer.restart();
+            if (printFPS)
+                std::cout << "Current FPS: " << 1000 / (updateTimer.getTicks() + 1)  << "\n";
+            tickTimer.restart();
         }
-        update(std::min((int)updateTimer.getTicks(), Graphics::s_MaxFrameTime));
+
+        lastFrameTime = std::min((int)updateTimer.getTicks(), Graphics::s_MaxFrameTime);
+        update(lastFrameTime);
+
+        // Todo: fix
+        //if (!Graphics::s_VSyncSDL && Graphics::s_MaxFrameTime > lastFrameTime)
+        //    SDL_Delay(Graphics::s_MaxFrameTime - lastFrameTime);
         updateTimer.restart();
 
         draw();

@@ -7,6 +7,7 @@
 #include "graphics/graphics.h"
 #include "graphics/button.h"
 #include "entities/player.h"
+#include "utils/timer.h"
 
 class GameState;
 
@@ -33,6 +34,8 @@ public:
 private:
     std::vector<GameState*> m_States;
     Graphics m_Graphics;
+    Timer tickTimer;
+    Timer updateTimer;
     bool m_Running;
 };
 

@@ -24,6 +24,7 @@ public:
         BUTTON_MOUSE_DOWN,
         BUTTON_MOUSE_UP
     };
+
 private:
     std::string m_Text;
     SDL_Rect m_Rect;

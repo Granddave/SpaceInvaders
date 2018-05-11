@@ -34,11 +34,7 @@ void Button::handleEvents(SDL_Event& e)
         SDL_GetMouseState(&x, &y);
         Vector2 p(x, y);
 
-        if(pointInsideRect(p, m_Rect) == false)
-        {
-            m_State = BUTTON_MOUSE_OUT;
-        }
-        else
+        if(pointInsideRect(p, m_Rect))
         {
             switch(e.type)
             {
@@ -54,6 +50,10 @@ void Button::handleEvents(SDL_Event& e)
                 m_State = BUTTON_MOUSE_UP;
             break;
             }
+        }
+        else
+        {
+            m_State = BUTTON_MOUSE_OUT;
         }
     }
 }

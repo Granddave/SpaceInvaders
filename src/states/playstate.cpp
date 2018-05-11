@@ -11,7 +11,6 @@ void PlayState::init(Graphics *graphics)
     m_Graphics = graphics;
 
     m_Player = new Player(m_Graphics);
-    m_PlayerBullets.reserve(2);
 }
 
 void PlayState::clean()

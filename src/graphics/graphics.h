@@ -36,7 +36,6 @@ public:
     static int s_FPS;
     static int s_MaxFrameTime;
     static std::string s_WindowTitle;
-    const std::string WINDOW_TITLE = "Space Invaders";
 
 private:
     SDL_Window* m_Window;

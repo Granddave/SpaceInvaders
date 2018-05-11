@@ -1,7 +1,7 @@
 #ifndef MENUSTATE_H
 #define MENUSTATE_H
 
-#include "gamestate.h"
+#include "state.h"
 #include "graphics/graphics.h"
 #include "utils/input.h"
 #include "graphics/button.h"
@@ -9,7 +9,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
-class MenuState : public GameState
+class MenuState : public State
 {
 public:
     void init(Graphics* graphics);

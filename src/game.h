@@ -10,7 +10,7 @@
 #include "utils/timer.h"
 #include "utils/fpscounter.h"
 
-class GameState;
+class State;
 
 class Game
 {
@@ -19,8 +19,8 @@ public:
 
     bool init();
     void exec();
-    void changeState(GameState* state);
-    void pushState(GameState* state);
+    void changeState(State* state);
+    void pushState(State* state);
     void popState();
 
     void handleEvents();
@@ -33,7 +33,7 @@ public:
     void quit()     { m_Running = false; }
 
 private:
-    std::vector<GameState*> m_States;
+    std::vector<State*> m_States;
     Graphics m_Graphics;
     Timer tickTimer;
     Timer updateTimer;

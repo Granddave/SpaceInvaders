@@ -45,21 +45,18 @@ Graphics::~Graphics()
 
 bool Graphics::init()
 {
-    bool success = true;
-
-    SDL_DisplayMode displayMode;
-
     int displayInUse = 0; // Current display
     int numDisplayModes = SDL_GetNumDisplayModes(displayInUse);
     if (numDisplayModes < 1)
     {
         std::cout << "Could not get number of display modes! "
                   << "SDL_Error: " << SDL_GetError() << std::endl;
-        success = false;
+        return false;
     }
 
     std::cout << "Number of display modes: " << numDisplayModes << std::endl;
 
+    SDL_DisplayMode displayMode;
     SDL_GetDesktopDisplayMode(0, &displayMode);
     std::cout << displayMode.w << "x" << displayMode.h << '\n';
 
@@ -70,69 +67,62 @@ bool Graphics::init()
         {
             std::cout << "Get display mode failed! "
                       << "SDL_Error: " << SDL_GetError() << std::endl;
-            success = false;
+            return false;
         }
         std::cout << m_DisplayMode.w << "x" << m_DisplayMode.h << '\n';
     }
     */
 
-
     Uint32 windowFlags = s_Fullscreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_SHOWN;
 
     m_Window = SDL_CreateWindow(Graphics::s_WindowTitle.c_str(),
-                                SDL_WINDOWPOS_UNDEFINED,
-                                SDL_WINDOWPOS_UNDEFINED,
+                                SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                 Graphics::s_ScreenWidth, Graphics::s_ScreenHeight,
                                 windowFlags);
     if(m_Window == NULL)
     {
         std::cout << "Window could not be created!\n"
                   << "SDL_Error: " << SDL_GetError() << std::endl;
-        success = false;
+        return false;
     }
+
+    Uint32 renderFlags = 0;
+    if(Graphics::s_AcceleratedGraphics)
+        renderFlags = renderFlags | SDL_RENDERER_ACCELERATED;
     else
+        renderFlags = renderFlags | SDL_RENDERER_SOFTWARE;
+
+    if(Graphics::s_VSyncSDL && Graphics::s_AcceleratedGraphics)
+        renderFlags = renderFlags | SDL_RENDERER_PRESENTVSYNC;
+
+    m_Renderer = SDL_CreateRenderer(m_Window, -1, renderFlags);
+    if(m_Renderer == NULL)
     {
-        Uint32 renderFlags = 0;
-        if(Graphics::s_AcceleratedGraphics)
-            renderFlags = renderFlags | SDL_RENDERER_ACCELERATED;
-        else
-            renderFlags = renderFlags | SDL_RENDERER_SOFTWARE;
-
-        if(Graphics::s_VSyncSDL && Graphics::s_AcceleratedGraphics)
-            renderFlags = renderFlags | SDL_RENDERER_PRESENTVSYNC;
-
-        m_Renderer = SDL_CreateRenderer(m_Window, -1, renderFlags);
-
-        if(m_Renderer == NULL)
-        {
-            std::cout << "Renderer could not be created!\n"
-                      << "SDL_Error: " << SDL_GetError() << std::endl;
-            success = false;
-        }
-        else
-        {
-            SDL_SetRenderDrawColor(m_Renderer, 0x00, 0x00, 0x00, 0xFF);
-
-            // Todo: Move this block to texturemanager
-            // Initialize PNG loading
-            int imgFlags = IMG_INIT_PNG;
-            if(!(IMG_Init(imgFlags) & imgFlags))
-            {
-                std::cout << "SDL_image could not initialize!\n"
-                          << "SDL_Error: " << IMG_GetError() << std::endl;
-                success = false;
-            }
-
-            // Todo: Move to fontmanager
-            if(TTF_Init() == -1)
-            {
-                std::cout << "SDL_ttf could not initialized!\n"
-                          << "TTF_Error: " << TTF_GetError() << std::endl;
-                success = false;
-            }
-        }
+        std::cout << "Renderer could not be created!\n"
+                  << "SDL_Error: " << SDL_GetError() << std::endl;
+        return false;
     }
-    return success;
+
+    SDL_SetRenderDrawColor(m_Renderer, 0x00, 0x00, 0x00, 0xFF);
+
+    // Todo: Move this block to texturemanager
+    int imgFlags = IMG_INIT_PNG;
+    if(!(IMG_Init(imgFlags) & imgFlags))
+    {
+        std::cout << "SDL_image could not initialize!\n"
+                  << "IMG_Error: " << IMG_GetError() << std::endl;
+        return false;
+    }
+
+    // Todo: Move to fontmanager
+    if(TTF_Init() == -1)
+    {
+        std::cout << "SDL_ttf could not initialized!\n"
+                  << "TTF_Error: " << TTF_GetError() << std::endl;
+        return false;
+    }
+
+    return true;
 }
 
 void Graphics::blitSurface(SDL_Texture* texture,

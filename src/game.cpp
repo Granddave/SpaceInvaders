@@ -42,33 +42,16 @@ bool Game::init()
 
 void Game::exec()
 {
-    bool printFPS = true;
-    int lastFrameTime;
+    changeState(MenuState::instance());
 
     tickTimer.start();
     updateTimer.start();
-
-    changeState(MenuState::instance());
+    capTimer.start();
 
     while(running())
     {
         handleEvents();
-
-        if(tickTimer.getTicks() > 1000)
-        {
-            if (printFPS)
-                std::cout << "Current FPS: " << 1000 / (updateTimer.getTicks() + 1)  << "\n";
-            tickTimer.restart();
-        }
-
-        lastFrameTime = std::min((int)updateTimer.getTicks(), Graphics::s_MaxFrameTime);
-        update(lastFrameTime);
-
-        // Todo: fix
-        //if (!Graphics::s_VSyncSDL && Graphics::s_MaxFrameTime > lastFrameTime)
-        //    SDL_Delay(Graphics::s_MaxFrameTime - lastFrameTime);
-        updateTimer.restart();
-
+        update();
         draw();
     }
 
@@ -116,9 +99,20 @@ void Game::handleEvents()
     m_States.back()->handleEvents(this);
 }
 
-void Game::update(int ms)
+void Game::update()
 {
-    m_States.back()->update(this, ms);
+    int lastFrameTime = std::min((int)updateTimer.restart(), Graphics::s_MaxFrameTime);
+    if(tickTimer.getTicks() >= 1000)
+    {
+        std::cout << "Current Ms: "<< lastFrameTime << "\n";
+
+        if (globals::printFPS)
+            std::cout << "Current FPS: "<< m_Fps.getFps() << "\n";
+        tickTimer.restart();
+    }
+
+    m_Fps.newFrame();
+    m_States.back()->update(this, lastFrameTime);
 }
 
 void Game::draw()
@@ -127,6 +121,13 @@ void Game::draw()
     m_States.back()->draw();
     // Place FPS rendering here?
     m_Graphics.flip();
+
+    if (!Graphics::s_VSyncSDL && (uint32)Graphics::s_MaxFrameTime > capTimer.getTicks())
+    {
+        uint32 delay = Graphics::s_MaxFrameTime - capTimer.getTicks();
+        SDL_Delay(delay);
+    }
+    capTimer.restart();
 }
 
 void Game::clean()

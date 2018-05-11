@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include "gmath/Vector2.hpp"
+
 #include <SDL2/SDL_rect.h>
 #include <Box2D/Box2D.h>
 #define NOT_USED(x) ((void)(x))

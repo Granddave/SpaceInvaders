@@ -1,4 +1,5 @@
 #include "player.h"
+#include "utils/globals.h"
 
 #include <iostream>
 #include <math.h>

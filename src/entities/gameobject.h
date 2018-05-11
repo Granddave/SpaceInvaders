@@ -1,7 +1,6 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include "utils/globals.h"
 #include "graphics/graphics.h"
 #include "graphics/sprite.h"
 #include "gmath/Vector2.hpp"

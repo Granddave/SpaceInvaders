@@ -34,6 +34,7 @@ HEADERS += \
     states/menustate.h \
     states/pausestate.h \
     states/playstate.h \
+    utils/fpscounter.h \
     utils/globals.h \
     utils/input.h \
     utils/timer.h \
@@ -52,6 +53,7 @@ SOURCES += \
     states/menustate.cpp \
     states/pausestate.cpp \
     states/playstate.cpp \
+    utils/fpscounter.cpp \
     utils/input.cpp \
     utils/timer.cpp \
     utils/utils.cpp \

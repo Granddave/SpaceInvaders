@@ -8,6 +8,7 @@
 #include "graphics/button.h"
 #include "entities/player.h"
 #include "utils/timer.h"
+#include "utils/fpscounter.h"
 
 class GameState;
 
@@ -23,7 +24,7 @@ public:
     void popState();
 
     void handleEvents();
-    void update(int ms);
+    void update();
     void draw();
 
     void clean();
@@ -36,6 +37,8 @@ private:
     Graphics m_Graphics;
     Timer tickTimer;
     Timer updateTimer;
+    Timer capTimer;
+    FpsCounter m_Fps;
     bool m_Running;
 };
 

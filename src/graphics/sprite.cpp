@@ -1,7 +1,6 @@
 #include "graphics/sprite.h"
 #include "graphics/graphics.h"
 #include "graphics/texturemanager.h"
-#include "utils/globals.h"
 #include <string>
 #include <iostream>
 

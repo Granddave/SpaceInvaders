@@ -1,5 +1,4 @@
 #include "button.h"
-#include "utils/globals.h"
 #include "utils/utils.h"
 #include "gmath/Vector2.hpp"
 

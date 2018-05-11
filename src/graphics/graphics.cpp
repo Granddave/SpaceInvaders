@@ -1,5 +1,4 @@
 #include "graphics/graphics.h"
-#include "utils/globals.h"
 
 #include <iostream>
 #include <SDL2/SDL_ttf.h>

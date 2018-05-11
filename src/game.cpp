@@ -136,7 +136,7 @@ void Game::draw()
 
 void Game::clean()
 {
-    while(m_States.size > 0)
+    while(m_States.size() > 0)
     {
         m_States.back()->clean();
         m_States.pop_back();

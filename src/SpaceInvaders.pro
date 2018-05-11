@@ -31,7 +31,7 @@ HEADERS += \
     graphics/graphics.h \
     graphics/sprite.h \
     graphics/texturemanager.h \
-    states/gamestate.h \
+    states/state.h \
     states/menustate.h \
     states/pausestate.h \
     states/playstate.h \

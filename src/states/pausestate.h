@@ -1,13 +1,13 @@
 #ifndef PAUSESTATE_H
 #define PAUSESTATE_H
 
-#include "states/gamestate.h"
+#include "states/state.h"
 #include "utils/input.h"
 #include "graphics/button.h"
 
 #include <SDL2/SDL.h>
 
-class PauseState : public GameState
+class PauseState : public State
 {
 public:
     void init(Graphics *graphics);

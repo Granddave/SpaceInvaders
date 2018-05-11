@@ -2,7 +2,7 @@
 #include "utils/input.h"
 #include "utils/timer.h"
 #include "utils/globals.h"
-#include "states/gamestate.h"
+#include "states/state.h"
 #include "states/menustate.h"
 
 #include <iostream>
@@ -69,7 +69,7 @@ void Game::exec()
     clean();
 }
 
-void Game::changeState(GameState *state)
+void Game::changeState(State *state)
 {
     if(!m_States.empty())
     {
@@ -81,7 +81,7 @@ void Game::changeState(GameState *state)
     m_States.back()->init(&m_Graphics);
 }
 
-void Game::pushState(GameState *state)
+void Game::pushState(State *state)
 {
     if(!m_States.empty())
     {
@@ -92,16 +92,18 @@ void Game::pushState(GameState *state)
     m_States.back()->init(&m_Graphics);
 }
 
+/* Pop current state and resume the next state in the stack. */
 void Game::popState()
 {
-    if(!m_States.empty())
+    if(m_States.size() >= 2)
     {
         m_States.back()->clean();
         m_States.pop_back();
-    }
-    if(!m_States.empty())
-    {
         m_States.back()->resume();
+    }
+    else
+    {
+        std::cout << "Game::popState: No state to resume!" << std::endl;
     }
 }
 
@@ -125,7 +127,7 @@ void Game::draw()
 
 void Game::clean()
 {
-    while(!m_States.empty())
+    while(m_States.size > 0)
     {
         m_States.back()->clean();
         m_States.pop_back();

@@ -4,7 +4,7 @@
 #include "game.h"
 #include "graphics/graphics.h"
 
-class GameState
+class State
 {
 public:
     virtual void init(Graphics* graphics) = 0;
@@ -17,10 +17,10 @@ public:
     virtual void update(Game* game, int ms) = 0;
     virtual void draw() = 0;
 
-    void ChangeState(Game* game, GameState* state) { game->changeState(state); }
+    void ChangeState(Game* game, State* state) { game->changeState(state); }
 
 protected:
-    GameState() {}
+    State() {}
     Graphics* m_Graphics;
 };
 

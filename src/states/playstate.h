@@ -2,13 +2,13 @@
 #define PLAYSTATE_H
 
 #include <SDL2/SDL.h>
-#include "states/gamestate.h"
+#include "states/state.h"
 #include "utils/input.h"
 #include "entities/player.h"
 #include "entities/bullet.h"
 #include "entities/enemy.h"
 
-class PlayState : public GameState
+class PlayState : public State
 {
 public:
     void init(Graphics* graphics);
